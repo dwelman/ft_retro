@@ -23,7 +23,7 @@ MapElement & MapElement::operator=(MapElement const & me)
 
 bool MapElement::operator==(MapElement const & me)
 {
-	return (this->x == me.x && this->y == me.y);
+	return (this->x == me.GetX() && this->y == me.GetY());
 }
 
 MapElement & MapElement::operator+(Vector2 const & v)

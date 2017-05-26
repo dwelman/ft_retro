@@ -1,4 +1,4 @@
-#include "GameManager.h"
+#include "GameManager.hpp"
 
 GameManager::GameManager() : score(0), lives(startingLives), entityCount(500)
 {
@@ -52,9 +52,15 @@ void GameManager::CheckCollisions()
 		if (entities[i] != nullptr)
 		{
 			temp = entities[i];
+			if (temp->GetMapObject().CheckOutOfMapBounds(0, 0, screenWidth, screenHeight))
+			{
+				delete entities[i];
+				entities[i] = nullptr;
+				std::cout << "OFF MAP!" << std::endl;
+			}
 			for (int k = 0; k < entityCount; k++)
 			{
-				if (i != k)
+				if (i != k && entities[k] != nullptr)
 				{
 					if (temp->GetMapObject().FindCollisions(entities[k]->GetMapObject()))
 					{
@@ -81,4 +87,9 @@ void GameManager::PushEntity(Entity const & e)
 			return ;
 		}
 	}
+}
+
+void GameManager::HandleMovement()
+{
+	//DEAN: Made a MovingEntity class and interface, not sure what the best way to implement it would be
 }

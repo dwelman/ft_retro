@@ -67,12 +67,24 @@ bool MapObject::FindCollisions(MapObject const & m) const
 {
 	for (int i = 0; i < numberElements; i++)
 	{
-		for (int k = 0; k < m.GetNumberElements(); i++)
+		for (int k = 0; k < m.GetNumberElements(); k++)
 		{
 			if (elements[i] == m.GetElements()[k])
 			{
 				return (true);
 			}
+		}
+	}
+	return (false);
+}
+
+bool MapObject::CheckOutOfMapBounds(int xLowerBound, int yLowerBound, int xUpperBound, int yUpperBound) const
+{
+	for (int i = 0; i < numberElements; i++)
+	{
+		if (elements[i].GetX() < xLowerBound || elements[i].GetX() > xUpperBound || elements[i].GetY() < yLowerBound || elements[i].GetY() > yUpperBound)
+		{
+			return (true);
 		}
 	}
 	return (false);

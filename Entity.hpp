@@ -14,7 +14,7 @@ public:
 
 	std::string	const &GetType() const;
 	MapObject	const &GetMapObject() const;
-	void		Move(Vector2 const &delta);
+	virtual void		Move(Vector2 const &delta);
 protected:
 	Entity();
 	MapObject	mapObj;

@@ -16,6 +16,7 @@ public:
 	void		PushElement(MapElement const &elem);
 	void		Move(Vector2 const &delta);
 	bool		FindCollisions(MapObject const &m) const;
+	bool		CheckOutOfMapBounds(int xLowerBound, int yLowerBound, int xUpperBound, int yUpperBound) const;
 private:
 
 	int			numberElements;
