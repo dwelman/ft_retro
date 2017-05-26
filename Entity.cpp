@@ -4,10 +4,10 @@ Entity::Entity()
 {
 }
 
-Entity::Entity(std::string const & _type, Vector2 const & _pos)
+Entity::Entity(std::string const & _type, MapObject const & mo)
 {
 	this->type = _type;
-	this->pos = _pos;
+	this->mapObj = mo;
 }
 
 Entity::Entity(Entity const & e)
@@ -21,14 +21,9 @@ Entity::~Entity()
 
 Entity & Entity::operator=(Entity const & e)
 {
-	this->pos = e.pos;
+	this->mapObj = e.mapObj;
 	this->type = e.type;
 	return (*this);
-}
-
-Vector2  &Entity::GetPos()
-{
-	return (pos);
 }
 
 std::string const &Entity::GetType() const
@@ -36,8 +31,12 @@ std::string const &Entity::GetType() const
 	return (type);
 }
 
-bool Entity::Move(Vector2 const &delta)
+MapObject const & Entity::GetMapObject() const
 {
-	pos = pos + delta;
-	return (true);
+	return (mapObj);
+}
+
+void Entity::Move(Vector2 const &delta)
+{
+	mapObj.Move(delta);
 }

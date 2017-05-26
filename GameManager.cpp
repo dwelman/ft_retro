@@ -1,6 +1,6 @@
 #include "GameManager.h"
 
-GameManager::GameManager() : score(0), lives(startingLives)
+GameManager::GameManager() : score(0), lives(startingLives), entityCount(500)
 {
 	for (unsigned int i = 0; i < 500; i++)
 	{
@@ -42,4 +42,43 @@ int GameManager::GetScreenWidth() const
 int GameManager::GetScreenHeight() const
 {
 	return (screenHeight);
+}
+
+void GameManager::CheckCollisions()
+{
+	Entity	*temp;
+	for (int i = 0; i < entityCount; i++)
+	{
+		if (entities[i] != nullptr)
+		{
+			temp = entities[i];
+			for (int k = 0; k < entityCount; k++)
+			{
+				if (i != k)
+				{
+					if (temp->GetMapObject().FindCollisions(entities[k]->GetMapObject()))
+					{
+						delete entities[i];
+						entities[i] = nullptr;
+						delete entities[k];
+						entities[k] = nullptr;
+						std::cout << "COLLISION!" << std::endl;
+						break;
+					}
+				}
+			}
+		}
+	}
+}
+
+void GameManager::PushEntity(Entity const & e)
+{
+	for (int i = 0; i < entityCount; i++)
+	{
+		if (entities[i] == nullptr)
+		{
+			entities[i] = new Entity(e);
+			return ;
+		}
+	}
 }

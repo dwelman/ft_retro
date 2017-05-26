@@ -20,7 +20,7 @@ public:
 
 	int		GetX() const;
 	int		GetY() const;
-private:
+protected:
 	int		x;
 	int		y;
 };

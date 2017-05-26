@@ -15,6 +15,8 @@ public:
 	int		GetLives() const;
 	int		GetScreenWidth() const;
 	int		GetScreenHeight() const;
+	void	CheckCollisions();
+	void	PushEntity(Entity const &e);
 private:
 	int		score;
 	int		lives;
