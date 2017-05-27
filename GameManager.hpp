@@ -28,6 +28,6 @@ private:
 	int		entityCount;
 
 	int const	startingLives = 3;
-	int const	screenWidth = 500;
-	int const	screenHeight	= 500;
+	int const	screenWidth = 30;
+	int const	screenHeight = 30;
 };

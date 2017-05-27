@@ -36,6 +36,11 @@ MapObject const & Entity::GetMapObject() const
 	return (mapObj);
 }
 
+void Entity::Move()
+{
+	
+}
+
 void Entity::Move(Vector2 const &delta)
 {
 	mapObj.Move(delta);

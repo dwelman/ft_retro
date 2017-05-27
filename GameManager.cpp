@@ -91,5 +91,13 @@ void GameManager::PushEntity(Entity const & e)
 
 void GameManager::HandleMovement()
 {
-	//DEAN: Made a MovingEntity class and interface, not sure what the best way to implement it would be
+	Entity	*temp;
+	for (int i = 0; i < entityCount)
+	{
+		if (entities[i] != nullptr)
+		{
+			temp = entities[i];
+			temp->Move();
+		}
+	}
 }
