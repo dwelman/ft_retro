@@ -9,7 +9,8 @@ CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
 
 SRC = main.cpp Entity.cpp GameClock.cpp GameManager.cpp MapElement.cpp MapObject.cpp \
-		MovingEntity.cpp Vector2.cpp EntityFactory.cpp ShootingEntity.cpp
+		MovingEntity.cpp Vector2.cpp EntityFactory.cpp ShootingEntity.cpp Enemy.cpp \
+		Player.cpp
 
 OBJ = $(SRC:.cpp=.o)
 
