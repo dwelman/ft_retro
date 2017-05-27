@@ -2,6 +2,7 @@
 #include "Entity.hpp"
 #include "GameManager.hpp"
 #include "EntityFactory.hpp"
+#include "ShootingEntity.hpp"
 #include <iostream>
 
 int	main(int argc, char **argv)
@@ -9,7 +10,7 @@ int	main(int argc, char **argv)
 	EntityFactory factory;
 	(void)argc;
 	(void)argv;
-	
+
 	MapObject mo(6);
 	mo.PushElement(MapElement('.', 0, 0));
 	mo.PushElement(MapElement('|', 1, 0));

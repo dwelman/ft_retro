@@ -17,6 +17,7 @@ public:
 	virtual void 		Move();
 	virtual void		Move(Vector2 const &delta);
 	virtual	Entity		*clone();
+	virtual void 		Update();
 protected:
 	Entity();
 	MapObject	mapObj;

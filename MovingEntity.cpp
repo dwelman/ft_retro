@@ -39,3 +39,8 @@ void MovingEntity::Move()
 MovingEntity::MovingEntity()
 {
 }
+
+void 	MovingEntity::Update()
+{
+	Move();
+}

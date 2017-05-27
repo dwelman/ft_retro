@@ -1,9 +1,8 @@
 #pragma once
 
 #include "Entity.hpp"
-#include "IMovingEntity.hpp"
 
-class MovingEntity : public Entity, public IMovingEntity
+class MovingEntity : public Entity
 {
 public:
 	MovingEntity(std::string const &_type, MapObject const & mo);
@@ -14,6 +13,7 @@ public:
 	Vector2			GetMoveDir() const;
 	void			SetMoveDir(Vector2 newMoveDir);
 	void			Move();
+	void 			Update();
 protected:
 	MovingEntity();
 

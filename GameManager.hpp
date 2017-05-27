@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Entity.hpp"
-#include "IMovingEntity.hpp"
 
 class GameManager
 {

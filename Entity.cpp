@@ -38,6 +38,11 @@ MapObject const & Entity::GetMapObject() const
 
 void Entity::Move()
 {
+
+}
+
+void Entity::Update()
+{
 	
 }
 
