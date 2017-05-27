@@ -36,6 +36,14 @@ MapObject const & Entity::GetMapObject() const
 	return (mapObj);
 }
 
+EntityOrder	Entity::GetEntityOrder()
+{
+	EntityOrder ret;
+
+	ret.amount = 0;
+	return (ret);
+}
+
 void Entity::Move()
 {
 

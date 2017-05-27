@@ -71,6 +71,20 @@ void    ShootingEntity::Shoot()
     }
 }
 
+EntityOrder		ShootingEntity::GetEntityOrder()
+{
+    EntityOrder ret;
+
+    ret.amount = 0;
+    for (int i = 0; i < nProjectiles && i < ENTITY_ORDER_MAX; i++)
+    {
+        ret.type[i] = (type == "player") ? "p_projectile" : "e_projectile";
+        ret.amount++;
+        ret.pos[i] = projectilePos[i];
+    }
+    return (ret);
+}
+
 ShootingEntity::ShootingEntity()
 {
 

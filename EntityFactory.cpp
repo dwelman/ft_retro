@@ -92,3 +92,17 @@ Entity* EntityFactory::createEntity(std::string const & type)
 	}
 	return nullptr;
 }
+
+Entity* EntityFactory::createEntity(std::string const & type, Vector2 offset)
+{
+	for (int i = 0; i < MAX_LEARN; i++)
+	{
+		if (_entities[i]->GetType() == type)
+		{
+			Entity	*newEnt = _entities[i]->clone();
+			newEnt->Move(offset);
+			return (newEnt);
+		}
+	}
+	return nullptr;
+}

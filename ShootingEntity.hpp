@@ -11,6 +11,7 @@ public:
 
     ShootingEntity &operator=(ShootingEntity const &se);
     virtual void    Shoot();
+	EntityOrder		GetEntityOrder();
 protected:
     ShootingEntity();
     Vector2 *shootPoints;

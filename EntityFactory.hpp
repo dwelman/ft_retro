@@ -20,6 +20,6 @@ public:
 	EntityFactory	 &operator=(const EntityFactory &src);
 	void 	learnEntity(Entity *);
 	Entity* createEntity(std::string const & type);
-	Entity* createEntity(std::string const & type, Vector2 &offset);
+	Entity* createEntity(std::string const & type, Vector2 offset);
 };
 
