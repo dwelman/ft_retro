@@ -5,7 +5,7 @@
 #include "MovingEntity.hpp"
 #include "Player.hpp"
 #define MAX_X 30
-#define MAX_Y 30
+#define MAX_Y 45
 
 class GameManager
 {
@@ -25,6 +25,7 @@ public:
 	int		PushEntity(Entity const &e);
 	void	Update();
 	void	SetMovementAxis(std::string const &axis, int val);
+	void 	ResetMovementAxis();
 private:
 	int				score;
 	int				lives;

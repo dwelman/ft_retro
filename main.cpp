@@ -32,7 +32,7 @@ int screen_init(Vector2 const &screen_vals)
 
 int	main(int argc, char **argv)
 {
-	GameClock clock(1);
+	GameClock clock(30);
 	(void)argc;
 	(void)argv;
 
@@ -63,17 +63,18 @@ int	main(int argc, char **argv)
 
     int col, row, horizontal_space, vertical_space;
 
-    vertical_space = (maxX - 4) / (MAX_X - 1);
-    horizontal_space = maxY / (MAX_Y - 1);
+    vertical_space = (maxX - 4) / (MAX_X + 20 - 1);
+    horizontal_space = maxY / (MAX_Y + 20 - 1);
 
-    row = (maxX - 4 - (MAX_X - 1) * vertical_space) / 2;
-    col = (maxY - (MAX_Y - 1) * horizontal_space) / 2;
+    row = (maxX - 4 - (MAX_X + 20 - 1) * vertical_space) / 2;
+    col = (maxY - (MAX_Y + 20 - 1) * horizontal_space) / 2;
 
 	bool	running = true;
 	int steps = 0;
 	while (running)
 	{
 		clock.startCycle();
+		gm.ResetMovementAxis();
 		//attron(A_BOLD);
 		//mvprintw(row + play_y * vertical_space, col + play_x * horizontal_space, "%c", '^');
 		//attroff(A_BOLD);
@@ -82,16 +83,16 @@ int	main(int argc, char **argv)
 	    switch (getch())
 	    {
 	        case KEY_LEFT:
-
+				gm.SetMovementAxis("h", -1);
 	            break;
-
 	        case KEY_RIGHT:
+				gm.SetMovementAxis("h", 1);
 				break;
-
 	        case KEY_UP:
-
+				gm.SetMovementAxis("v", -1);
 	            break;
 	        case KEY_DOWN:
+				gm.SetMovementAxis("v", 1);
 				break;
 			case 27:
 				return (0);
@@ -101,11 +102,7 @@ int	main(int argc, char **argv)
 		mvprintw(maxX - 2, 1, "Clock: %d", clock.getSeconds());
 		mvprintw(maxX - 3, 1, "Points: %d", 0);
 		attroff(COLOR_PAIR(3));
-		if (steps > 600)
-		{
-			gm.Update();
-			steps = 0;
-		}
+		gm.Update();
 		gm.CheckCollisions();
 		gm.FillMap(map);
 		for (int y = 0; y < MAX_Y; y++)
@@ -119,10 +116,10 @@ int	main(int argc, char **argv)
 	        }
 	    }
 		refresh();
-		sleep = clock.getSleepTime() / 1000;
+		sleep = clock.getSleepTime() * 1000;
 		if (sleep > 0)
 			usleep(sleep);
 		steps++;
 	}
-
+	endwin();
 }

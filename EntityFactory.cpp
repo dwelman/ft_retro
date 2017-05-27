@@ -19,6 +19,7 @@ void 	InitFactory(EntityFactory *factory)
 		mo.PushElement(MapElement('\\', 2, 1));
 		Vector2	sp[2] =	{Vector2(0, -1),Vector2(2, -1)};
 		Entity *player = new Player("player", mo, &sp[0], 2);
+		player->SetUpdateFreq(1);
 		factory->learnEntity(player);
 	}
 	//Player Projectile

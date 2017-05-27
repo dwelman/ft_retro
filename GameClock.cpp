@@ -52,7 +52,7 @@ int GameClock::getInterval() const
 
 int GameClock::getSleepTime() const
 {
-	int cycletime = (clock() - _cycleStart) / CLOCKS_PER_SEC;
+	int cycletime = (clock() - _cycleStart);
 	return (_interval - cycletime);
 }
 

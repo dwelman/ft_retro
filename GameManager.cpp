@@ -27,7 +27,6 @@ GameManager::GameManager() : score(0), lives(startingLives), entityCount(500)
 */
 	//temp = factory.createEntity("p_projectile", Vector2(screenWidth / 2 , screenHeight -5 ));
 	//PushEntity(*temp);
-	SetMovementAxis("v", -1);
 }
 
 GameManager::GameManager(GameManager const & gm)
@@ -203,4 +202,10 @@ void	GameManager::SetMovementAxis(std::string const &axis, int val)
 	{
 		movementAxis.SetX(movementAxis.GetX() + val);
 	}
+}
+
+void 	GameManager::ResetMovementAxis()
+{
+	movementAxis.SetY(0);
+	movementAxis.SetX(0);
 }
