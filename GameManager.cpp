@@ -1,8 +1,10 @@
 #include "GameManager.hpp"
 
+
+
 int const GameManager::startingLives = 3;
-int const GameManager::screenWidth = 30;
-int const GameManager::screenHeight = 30;
+int const GameManager::screenWidth = MAX_X;
+int const GameManager::screenHeight = MAX_Y;
 
 GameManager::GameManager() : score(0), lives(startingLives), entityCount(500)
 {
@@ -10,7 +12,22 @@ GameManager::GameManager() : score(0), lives(startingLives), entityCount(500)
 	{
 		entities[i] = nullptr;
 	}
-	player = nullptr;
+	Entity *temp = factory.createEntity("player", Vector2(screenWidth / 2, screenHeight -5 ));
+	PushEntity(*temp);
+	delete temp;
+
+	//std::cout << "GameManager " << std::endl;
+
+	/*MapObject mo(1);
+
+	mo.PushElement(MapElement('*', 0, 0));
+	std::cout << "elem " << mo.GetElements()[0].GetMapChar() << std::endl;
+	MovingEntity *projectile = new MovingEntity("p_projectile", mo);
+	projectile->SetMoveDir(Vector2(0, -1));
+*/
+	//temp = factory.createEntity("p_projectile", Vector2(screenWidth / 2 , screenHeight -5 ));
+	//PushEntity(*temp);
+	SetMovementAxis("v", -1);
 }
 
 GameManager::GameManager(GameManager const & gm)
@@ -29,7 +46,7 @@ GameManager & GameManager::operator=(GameManager const & gm)
 	return (*this);
 }
 
-void GameManager::SetPlayer(int id)
+/*void GameManager::SetPlayer(int id)
 {
 	if (id >= 0 && id < 500)
 	{
@@ -38,7 +55,7 @@ void GameManager::SetPlayer(int id)
 			player = entities[id];
 		}
 	}
-}
+}*/
 
 int GameManager::GetScore() const
 {
@@ -111,9 +128,9 @@ void 	GameManager::FillMap(char **map) const
 	int	x = 0;
 	int	y = 0;
 
-	for (int i = 0; i < 30; i++)
+	for (int i = 0; i < MAX_Y; i++)
 	{
-		for (int j = 0; j < 30; j++)
+		for (int j = 0; j < MAX_X; j++)
 		{
 			map[i][j] = ' ';
 		}
@@ -127,21 +144,36 @@ void 	GameManager::FillMap(char **map) const
 			{
 				x = entities[i]->GetMapObject().GetElements()[k].GetX();
 				y = entities[i]->GetMapObject().GetElements()[k].GetY();
-				map[y][x] = entities[i]->GetMapObject().GetElements()[k].GetMapChar();
+				if (x >= 0 && x < MAX_X && y >= 0 && y < MAX_Y)
+				{
+					map[y][x] = entities[i]->GetMapObject().GetElements()[k].GetMapChar();
+
+				}
 			}
 		}
 	}
 }
 
-void GameManager::HandleMovement()
+void GameManager::Update()
 {
-	Entity	*temp;
+	entities[0]->MoveDirect(movementAxis);
 	for (int i = 0; i < entityCount; i++)
 	{
 		if (entities[i] != nullptr)
 		{
-			temp = entities[i];
-			temp->Move();
+			entities[i]->Update();
 		}
+	}
+}
+
+void	GameManager::SetMovementAxis(std::string const &axis, int val)
+{
+	if (axis == "v")
+	{
+		movementAxis.SetY(movementAxis.GetY() + val);
+	}
+	else
+	{
+		movementAxis.SetX(movementAxis.GetX() + val);
 	}
 }

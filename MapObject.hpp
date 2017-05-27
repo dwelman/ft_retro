@@ -21,6 +21,7 @@ private:
 
 	int			numberElements;
 	MapElement	*elements;
+	int 		elemCount;
 };
 
 std::ostream	&operator<<(std::ostream &os, MapObject const &m);

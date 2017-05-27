@@ -10,9 +10,10 @@ public:
 
     Player &operator=(Player const &e);
 
-    void    Update();
+    void    	Update();
+	void		MovePlayer(Vector2 const &delta);
 
-    ~Player();
+	~Player();
 private:
     Player();
 };

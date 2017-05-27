@@ -23,6 +23,7 @@ Entity & Entity::operator=(Entity const & e)
 {
 	this->mapObj = e.mapObj;
 	this->type = e.type;
+	moveDir = e.moveDir;
 	return (*this);
 }
 
@@ -49,6 +50,11 @@ void Entity::Move()
 
 }
 
+void Entity::MoveDirect(Vector2 const &delta)
+{
+	mapObj.Move(delta);
+}
+
 void Entity::Update()
 {
 	
@@ -61,5 +67,6 @@ void Entity::Move(Vector2 const &delta)
 
 Entity		*Entity::clone()
 {
+	std::cout << "Cloning " << std::endl;
 	return (new Entity(*this));
 }

@@ -29,5 +29,10 @@ Player::Player()
 
 void    Player::Update()
 {
-    
+    Move();
+}
+
+void Player::MovePlayer(Vector2 const &delta)
+{
+    mapObj.Move(delta);
 }

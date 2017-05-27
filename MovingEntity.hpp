@@ -17,5 +17,5 @@ public:
 protected:
 	MovingEntity();
 
-	Vector2	moveDir;
+
 };

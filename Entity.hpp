@@ -22,15 +22,19 @@ public:
 
 	Entity	&operator=(Entity const &e);
 
-	std::string	const &GetType() const;
-	MapObject	const &GetMapObject() const;
+	std::string	const 	&GetType() const;
+	MapObject	const 	&GetMapObject() const;
+	Vector2				GetMoveDir() const;
+	void				SetMoveDir(Vector2 newMoveDir);
 	virtual EntityOrder	GetEntityOrder();
 	virtual void 		Move();
 	virtual void		Move(Vector2 const &delta);
+	virtual void		MoveDirect(Vector2 const &delta);
 	virtual	Entity		*clone();
 	virtual void 		Update();
 protected:
 	Entity();
 	MapObject	mapObj;
 	std::string	type;
+	Vector2	moveDir;
 };

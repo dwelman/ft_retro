@@ -1,6 +1,11 @@
 #pragma once
 
 #include "Entity.hpp"
+#include "EntityFactory.hpp"
+#include "MovingEntity.hpp"
+#include "Player.hpp"
+#define MAX_X 30
+#define MAX_Y 30
 
 class GameManager
 {
@@ -18,14 +23,17 @@ public:
 	int		GetScreenHeight() const;
 	void	CheckCollisions();
 	int		PushEntity(Entity const &e);
-	void	HandleMovement();
-	void    SetPlayer(int id);
+	void	Update();
+	//void    SetPlayer(int id);
+	void	SetMovementAxis(std::string const &axis, int val);
 private:
-	int		score;
-	int		lives;
+	int				score;
+	int				lives;
+	EntityFactory	factory;
+	Vector2			movementAxis;
 
 	Entity	*entities[500];
-	Entity	*player;
+//	Entity	*player;
 	int		entityCount;
 
 	static int const	startingLives;

@@ -5,7 +5,7 @@ MapObject::MapObject()
 	elements = nullptr;
 }
 
-MapObject::MapObject(int nElements) : numberElements(nElements)
+MapObject::MapObject(int nElements) : numberElements(nElements) , elemCount(0)
 {
 	elements = new MapElement[numberElements];
 }
@@ -47,7 +47,6 @@ MapElement * MapObject::GetElements() const
 
 void MapObject::PushElement(MapElement const & elem)
 {
-	static int elemCount = 0;
 	if (elemCount < numberElements)
 	{
 		elements[elemCount] = elem;

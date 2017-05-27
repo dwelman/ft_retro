@@ -31,16 +31,15 @@ int screen_init(Vector2 const &screen_vals)
 
 int	main(int argc, char **argv)
 {
-	GameClock clock(15);
-	int 		sleep = 0;
+	GameClock clock(1);
 	(void)argc;
 	(void)argv;
 
-	char **map = new char*[30];
+	char **map = new char*[MAX_Y];
 
-	for (int y = 0; y < 30; y++)
+	for (int y = 0; y < MAX_Y; y++)
 	{
-		map[y] = new char[30];
+		map[y] = new char[MAX_X];
 	}
 
 	int maxX = 0;
@@ -50,6 +49,7 @@ int	main(int argc, char **argv)
 	std::cout << "MaxX" << maxX << " MaxY " << maxY << std::endl;
 
 	Vector2 screen(maxX, maxY);
+  	int 		sleep = 0;
 
 	if (screen_init(screen) == 1)
 	{
@@ -60,28 +60,16 @@ int	main(int argc, char **argv)
 
 	std::cout << screen.GetX() << " " << screen.GetY() << std::endl;
 
-	MapObject mo(6);
-	mo.PushElement(MapElement('.', 14, 26));
-	mo.PushElement(MapElement('|', 15, 26));
-	mo.PushElement(MapElement('.', 16, 26));
-	mo.PushElement(MapElement('/', 14, 27));
-	mo.PushElement(MapElement('|', 15, 27));
-	mo.PushElement(MapElement('\\', 16, 27));
-
-	Entity ship("Player", mo);
-
-	gm.PushEntity(ship);
-
     int col, row, horizontal_space, vertical_space;
 
-    vertical_space = (maxX - 4) / (30 - 1);
-    horizontal_space = maxY / (30 - 1);
+    vertical_space = (maxX - 4) / (MAX_X - 1);
+    horizontal_space = maxY / (MAX_Y - 1);
 
-    row = (maxX - 4 - (30 - 1) * vertical_space) / 2;
-    col = (maxY - (30 - 1) * horizontal_space) / 2;
+    row = (maxX - 4 - (MAX_X - 1) * vertical_space) / 2;
+    col = (maxY - (MAX_Y - 1) * horizontal_space) / 2;
 
 	bool	running = true;
-
+	int steps = 0;
 	while (running)
 	{
 		clock.startCycle();
@@ -112,20 +100,28 @@ int	main(int argc, char **argv)
 		mvprintw(maxX - 2, 1, "Clock: %d", clock.getSeconds());
 		mvprintw(maxX - 3, 1, "Points: %d", 0);
 		attroff(COLOR_PAIR(3));
-
+		if (steps > 600)
+		{
+			gm.Update();
+			steps = 0;
+		}
+		//gm.CheckCollisions();
 		gm.FillMap(map);
-		for (int y = 0; y < 30; y++)
+		for (int y = 0; y < MAX_Y; y++)
 	    {
-	        for (int x = 0; x < 30; x++)
+	        for (int x = 0; x < MAX_X; x++)
 	        {
-	            mvprintw(row + y * vertical_space, col + x * horizontal_space,
+				attron(COLOR_PAIR(3));
+				mvprintw(row + y * vertical_space, col + x * horizontal_space,
 	                 "%c", map[y][x]);
+				attroff(COLOR_PAIR(3));
 	        }
 	    }
 		refresh();
 		sleep = clock.getSleepTime() / 1000;
 		if (sleep > 0)
 			usleep(sleep);
-	 }
+		steps++;
+	}
 
 }

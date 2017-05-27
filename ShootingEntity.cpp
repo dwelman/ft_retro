@@ -1,7 +1,7 @@
 #include "ShootingEntity.hpp"
 
 ShootingEntity::ShootingEntity(std::string const &_type, MapObject const & mo, Vector2 *_shootPoints, int _nShootPoints) :
-    MovingEntity(_type, mo), nShootPoints(_nShootPoints)
+    Entity(_type, mo), nShootPoints(_nShootPoints)
 {
     shootPoints = new Vector2[nShootPoints];
     for (int i  = 0; i < nShootPoints; i++)
@@ -32,7 +32,7 @@ ShootingEntity::~ShootingEntity()
 
 ShootingEntity &ShootingEntity::operator=(ShootingEntity const &se)
 {
-    MovingEntity::operator=(se);
+    Entity::operator=(se);
     if (shootPoints != nullptr)
     {
         delete [] shootPoints;

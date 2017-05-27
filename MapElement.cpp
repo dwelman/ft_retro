@@ -2,6 +2,7 @@
 
 MapElement::MapElement(char c, int _x, int _y) : Vector2(_x, _y), mapChar(c)
 {
+	std::cout << this->mapChar << std::endl;
 }
 
 MapElement::MapElement(MapElement const & me)

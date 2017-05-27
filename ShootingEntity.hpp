@@ -2,7 +2,7 @@
 
 #include "MovingEntity.hpp"
 
-class ShootingEntity : public MovingEntity
+class ShootingEntity : public Entity
 {
 public:
     ShootingEntity(std::string const &_type, MapObject const & mo, Vector2 *_shootPoints, int _nShootPoints);

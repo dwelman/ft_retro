@@ -20,6 +20,8 @@ public:
 
 	int		GetX() const;
 	int		GetY() const;
+	void	SetX(int _x);
+	void	SetY(int _y);
 
 protected:
 	int		x;

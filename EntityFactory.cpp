@@ -4,6 +4,7 @@
 
 #include "EntityFactory.hpp"
 #include "MovingEntity.hpp"
+#include "Player.hpp"
 
 void 	InitFactory(EntityFactory *factory)
 {
@@ -16,8 +17,9 @@ void 	InitFactory(EntityFactory *factory)
 		mo.PushElement(MapElement('/', 0, 1));
 		mo.PushElement(MapElement('|', 1, 1));
 		mo.PushElement(MapElement('\\', 2, 1));
-		Entity ship("Player", mo);
-		factory->learnEntity(&ship);
+		Vector2	sp[2] =	{Vector2(0, -1),Vector2(2, -1)};
+		Entity *player = new Player("player", mo, &sp[0], 2);
+		factory->learnEntity(player);
 	}
 	//Player Projectile
 	{
@@ -42,6 +44,7 @@ EntityFactory::EntityFactory() : _ecount(0)
 {
 	for (int i = 0; i < MAX_LEARN; i++)
 		_entities[i] = nullptr;
+	InitFactory(this);
 }
 
 EntityFactory::~EntityFactory()

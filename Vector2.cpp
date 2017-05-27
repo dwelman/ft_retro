@@ -72,6 +72,15 @@ int Vector2::GetY() const
 	return (y);
 }
 
+void	Vector2::SetX(int _x)
+{
+	x = _x;
+}
+void	Vector2::SetY(int _y)
+{
+	y = _y;
+}
+
 std::ostream & operator<<(std::ostream &os, Vector2 const & v)
 {
 	os << "[" << v.GetX() << "," << v.GetY() << "]";
