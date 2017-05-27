@@ -33,11 +33,25 @@ void 	InitFactory(EntityFactory *factory)
 	}
 	{
 		MapObject mo(1);
-		mo.PushElement(MapElement('*', 0, 0));
+		mo.PushElement(MapElement('o', 0, 0));
 		MovingEntity	*projectile = new MovingEntity("e_projectile", mo);
 		projectile->SetMoveDir(Vector2(0, 1));
 		factory->learnEntity(projectile);
 		delete projectile;
+	}
+    {
+		//Make Enemy
+		MapObject mo(6);
+		mo.PushElement(MapElement('/', 0, 0));
+		mo.PushElement(MapElement('-', 1, 0));
+		mo.PushElement(MapElement('\\', 2, 0));
+		mo.PushElement(MapElement('|', 0, 1));
+		mo.PushElement(MapElement('V', 1, 1));
+		mo.PushElement(MapElement('|', 2, 1));
+		Vector2	sp[2] =	{Vector2(0, 2),Vector2(2, 2)};
+		Entity *player = new Player("enemy", mo, &sp[0], 2);
+		player->SetUpdateFreq(1);
+		factory->learnEntity(player);
 	}
 }
 

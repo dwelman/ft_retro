@@ -48,7 +48,7 @@ EntityOrder	Entity::GetEntityOrder()
 
 void Entity::Move()
 {
-
+	mapObj.Move(moveDir);
 }
 
 void Entity::MoveDirect(Vector2 const &delta)
@@ -58,6 +58,11 @@ void Entity::MoveDirect(Vector2 const &delta)
 
 void Entity::Update()
 {
+	if (updateFreqCount > updateFreq)
+	{
+		Move();
+		updateFreqCount = 0;
+	}
 	updateFreqCount++;
 }
 

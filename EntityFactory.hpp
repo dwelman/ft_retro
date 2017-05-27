@@ -3,6 +3,7 @@
 //
 
 #include "IEntityFactory.hpp"
+#include "Enemy.hpp"
 
 #define MAX_LEARN 10
 
@@ -22,4 +23,3 @@ public:
 	Entity* createEntity(std::string const & type);
 	Entity* createEntity(std::string const & type, Vector2 offset);
 };
-

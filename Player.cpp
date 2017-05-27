@@ -3,7 +3,7 @@
 Player::Player(std::string const &_type, MapObject const & mo, Vector2 *_shootPoints, int _nShootPoints)
     : ShootingEntity(_type, mo, _shootPoints, _nShootPoints)
 {
-
+    shootFreq = 100;
 }
 
 Player::Player(Player const &e)
@@ -30,6 +30,13 @@ Player::Player()
 void    Player::Update()
 {
     Move();
+    if (updateFreq > shootFreq)
+    {
+        Shoot();
+        updateFreq = 0;
+    }
+    updateFreq++;
+    exit (0);
 }
 
 void Player::MovePlayer(Vector2 const &delta)

@@ -16,6 +16,22 @@ GameManager::GameManager() : score(0), lives(startingLives), entityCount(500)
 	PushEntity(*temp);
 	delete temp;
 
+	temp = factory.createEntity("enemy", Vector2(screenWidth / 2 + 10, 10 ));
+	PushEntity(*temp);
+	delete temp;
+
+	temp = factory.createEntity("enemy", Vector2(screenWidth / 2, 10 ));
+	PushEntity(*temp);
+	delete temp;
+
+	temp = factory.createEntity("enemy", Vector2(screenWidth / 2 - 10, 10 ));
+	PushEntity(*temp);
+	delete temp;
+
+	temp = factory.createEntity("e_projectile", Vector2(screenWidth / 2 - 10, 15));
+	PushEntity(*temp);
+	delete temp;
+
 	//std::cout << "GameManager " << std::endl;
 
 	/*MapObject mo(1);
@@ -96,11 +112,24 @@ void GameManager::CheckCollisions()
 				{
 					if (temp->GetMapObject().FindCollisions(entities[k]->GetMapObject()))
 					{
-						delete entities[i];
-						entities[i] = nullptr;
-						delete entities[k];
-						entities[k] = nullptr;
-						std::cout << "COLLISION!" << std::endl;
+						if (entities[i]->GetType() == "player")
+						{
+							delete entities[k];
+							entities[k] = nullptr;
+							lives--;
+							if (lives == 0)
+							{
+								//Call game over
+								exit(0);
+							}
+						}
+						else
+						{
+							delete entities[i];
+							entities[i] = nullptr;
+							delete entities[k];
+							entities[k] = nullptr;
+						}
 						break;
 					}
 				}
@@ -131,7 +160,7 @@ void 	GameManager::FillMap(char **map) const
 	{
 		for (int j = 0; j < MAX_X; j++)
 		{
-			if (i == 0 || j == 0 || i == MAX_Y - 1 || j == MAX_X)
+			if (i == 0 || j == 0 || i == MAX_Y - 1 || j == MAX_X - 1)
 			{
 				map[i][j] = '#';
 			}

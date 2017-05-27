@@ -16,4 +16,5 @@ public:
 	~Player();
 private:
     Player();
+    int shootFreq;
 };

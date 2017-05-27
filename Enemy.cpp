@@ -41,10 +41,16 @@ int     Enemy::GetShootFrequency()
 
 void    Enemy::Update()
 {
-    shootFrequencyCount++;
+    if (updateFreqCount > updateFreq)
+	{
+		Move();
+		updateFreqCount = 0;
+	}
     if (shootFrequencyCount >= shootFrequency)
     {
         Shoot();
         shootFrequencyCount = 0;
     }
+    updateFreqCount++;
+    shootFrequencyCount++;
 }
