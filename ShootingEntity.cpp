@@ -14,6 +14,9 @@ ShootingEntity::ShootingEntity(std::string const &_type, MapObject const & mo, V
 
 ShootingEntity::ShootingEntity(ShootingEntity const &se)
 {
+	shootPoints = nullptr;
+	projectilePos = nullptr;
+	nProjectiles = 0;
     *this = se;
 }
 
@@ -43,6 +46,7 @@ ShootingEntity &ShootingEntity::operator=(ShootingEntity const &se)
     {
         shootPoints[i] = se.shootPoints[i];
     }
+
     if (projectilePos != nullptr)
     {
         delete [] projectilePos;
@@ -82,10 +86,20 @@ EntityOrder		ShootingEntity::GetEntityOrder()
         ret.amount++;
         ret.pos[i] = projectilePos[i];
     }
+	if (projectilePos != nullptr)
+	{
+		delete [] projectilePos;
+		projectilePos = nullptr;
+	}
+	nProjectiles = 0;
     return (ret);
 }
 
 ShootingEntity::ShootingEntity()
 {
+}
 
+Entity	*ShootingEntity::clone() const
+{
+    return (new ShootingEntity(*this));
 }

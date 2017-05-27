@@ -32,7 +32,7 @@ int screen_init(Vector2 const &screen_vals)
 
 int	main(int argc, char **argv)
 {
-	GameClock clock(30);
+	GameClock clock(0);
 	(void)argc;
 	(void)argv;
 
@@ -94,6 +94,9 @@ int	main(int argc, char **argv)
 	        case KEY_DOWN:
 				gm.SetMovementAxis("v", 1);
 				break;
+			case ' ':
+				gm.GetPlayer()->Shoot();
+				break;
 			case 27:
 				return (0);
 		 }
@@ -121,5 +124,4 @@ int	main(int argc, char **argv)
 			usleep(sleep);
 		steps++;
 	}
-	endwin();
 }

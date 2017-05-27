@@ -26,6 +26,9 @@ public:
 	void	Update();
 	void	SetMovementAxis(std::string const &axis, int val);
 	void 	ResetMovementAxis();
+	Entity	*GetPlayer() {return entities[0];}
+	int		GetEntityCount() {return entityCount;}
+
 private:
 	int				score;
 	int				lives;

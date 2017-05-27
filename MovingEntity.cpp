@@ -44,3 +44,8 @@ void 	MovingEntity::Update()
 {
 	Move();
 }
+
+Entity	*MovingEntity::clone() const
+{
+	return (new MovingEntity(*this));
+}

@@ -144,7 +144,7 @@ int GameManager::PushEntity(Entity const & e)
 	{
 		if (entities[i] == nullptr)
 		{
-			entities[i] = new Entity(e);
+			entities[i] = e.clone();
 			return (i);
 		}
 	}

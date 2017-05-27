@@ -31,8 +31,9 @@ public:
 	virtual void 		Move();
 	virtual void		Move(Vector2 const &delta);
 	virtual void		MoveDirect(Vector2 const &delta);
-	virtual	Entity		*clone();
+	virtual	Entity		*clone() const = 0;
 	virtual void 		Update();
+	virtual void		Shoot();
 protected:
 	Entity();
 	MapObject	mapObj;

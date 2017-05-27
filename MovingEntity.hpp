@@ -14,6 +14,7 @@ public:
 	void			SetMoveDir(Vector2 newMoveDir);
 	void			Move();
 	void 			Update();
+	Entity			*clone() const;
 protected:
 	MovingEntity();
 

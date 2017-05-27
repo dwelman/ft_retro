@@ -71,13 +71,11 @@ void Entity::Move(Vector2 const &delta)
 	mapObj.Move(delta);
 }
 
-Entity		*Entity::clone()
-{
-	std::cout << "Cloning " << std::endl;
-	return (new Entity(*this));
-}
-
 void 		Entity::SetUpdateFreq(int freq)
 {
 	updateFreq = freq;
+}
+
+void 		Entity::Shoot()
+{
 }
