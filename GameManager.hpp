@@ -24,7 +24,6 @@ public:
 	void	CheckCollisions();
 	int		PushEntity(Entity const &e);
 	void	Update();
-	//void    SetPlayer(int id);
 	void	SetMovementAxis(std::string const &axis, int val);
 private:
 	int				score;
@@ -33,7 +32,6 @@ private:
 	Vector2			movementAxis;
 
 	Entity	*entities[500];
-//	Entity	*player;
 	int		entityCount;
 
 	static int const	startingLives;

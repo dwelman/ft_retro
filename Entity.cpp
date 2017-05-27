@@ -8,6 +8,7 @@ Entity::Entity(std::string const & _type, MapObject const & mo)
 {
 	this->type = _type;
 	this->mapObj = mo;
+	this->updateFreqCount = 0;
 }
 
 Entity::Entity(Entity const & e)
@@ -57,7 +58,7 @@ void Entity::MoveDirect(Vector2 const &delta)
 
 void Entity::Update()
 {
-	
+	updateFreqCount++;
 }
 
 void Entity::Move(Vector2 const &delta)
@@ -69,4 +70,9 @@ Entity		*Entity::clone()
 {
 	std::cout << "Cloning " << std::endl;
 	return (new Entity(*this));
+}
+
+void 		Entity::SetUpdateFreq(int freq)
+{
+	updateFreq = freq;
 }

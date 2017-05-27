@@ -132,7 +132,14 @@ void 	GameManager::FillMap(char **map) const
 	{
 		for (int j = 0; j < MAX_X; j++)
 		{
-			map[i][j] = ' ';
+			if (i == 0 || j == 0 || i == MAX_Y - 1 || j == MAX_X)
+			{
+				map[i][j] = '#';
+			}
+			else
+			{
+				map[i][j] = ' ';
+			}
 		}
 	}
 
@@ -156,12 +163,32 @@ void 	GameManager::FillMap(char **map) const
 
 void GameManager::Update()
 {
-	entities[0]->MoveDirect(movementAxis);
+	EntityOrder	eo;
+	Entity 		*temp;
+
+	if (entities[0] != nullptr)
+	{
+		entities[0]->MoveDirect(movementAxis);
+	}
+	else
+	{
+		exit(0);
+	}
 	for (int i = 0; i < entityCount; i++)
 	{
 		if (entities[i] != nullptr)
 		{
 			entities[i]->Update();
+			eo = entities[i]->GetEntityOrder();
+			if (eo.amount > 0)
+			{
+				for (int k = 0; k < eo.amount; k++)
+				{
+					temp = factory.createEntity(eo.type[k], eo.pos[k]);
+					PushEntity(*temp);
+					delete temp;
+				}
+			}
 		}
 	}
 }

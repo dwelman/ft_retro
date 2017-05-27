@@ -19,6 +19,7 @@ int screen_init(Vector2 const &screen_vals)
 	noecho();
 	nodelay(stdscr, TRUE);
 	keypad(stdscr, TRUE);
+	curs_set(FALSE);
 	if ((screen_vals.GetX() < 30 + 4) || (screen_vals.GetY() < 30))
     {
 		clear();
@@ -105,7 +106,7 @@ int	main(int argc, char **argv)
 			gm.Update();
 			steps = 0;
 		}
-		//gm.CheckCollisions();
+		gm.CheckCollisions();
 		gm.FillMap(map);
 		for (int y = 0; y < MAX_Y; y++)
 	    {

@@ -26,6 +26,7 @@ public:
 	MapObject	const 	&GetMapObject() const;
 	Vector2				GetMoveDir() const;
 	void				SetMoveDir(Vector2 newMoveDir);
+	void 				SetUpdateFreq(int freq);
 	virtual EntityOrder	GetEntityOrder();
 	virtual void 		Move();
 	virtual void		Move(Vector2 const &delta);
@@ -36,5 +37,7 @@ protected:
 	Entity();
 	MapObject	mapObj;
 	std::string	type;
-	Vector2	moveDir;
+	Vector2		moveDir;
+	int			updateFreq;
+	int			updateFreqCount;
 };
