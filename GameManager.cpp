@@ -29,6 +29,17 @@ GameManager & GameManager::operator=(GameManager const & gm)
 	return (*this);
 }
 
+void GameManager::SetPlayer(int id)
+{
+	if (id >= 0 && id < 500)
+	{
+		if (entities[id] != nullptr)
+		{
+			player = entities[id];
+		}
+	}
+}
+
 int GameManager::GetScore() const
 {
 	return (score);
@@ -82,14 +93,42 @@ void GameManager::CheckCollisions()
 	}
 }
 
-void GameManager::PushEntity(Entity const & e)
+int GameManager::PushEntity(Entity const & e)
 {
 	for (int i = 0; i < entityCount; i++)
 	{
 		if (entities[i] == nullptr)
 		{
 			entities[i] = new Entity(e);
-			return ;
+			return (i);
+		}
+	}
+	return (-1);
+}
+
+void 	GameManager::FillMap(char **map) const
+{
+	int	x = 0;
+	int	y = 0;
+
+	for (int i = 0; i < 30; i++)
+	{
+		for (int j = 0; j < 30; j++)
+		{
+			map[i][j] = ' ';
+		}
+	}
+
+	for (int i = 0; i < 500; i++)
+	{
+		if (entities[i] != nullptr)
+		{
+			for (int k = 0; k < entities[i]->GetMapObject().GetNumberElements(); k++)
+			{
+				x = entities[i]->GetMapObject().GetElements()[k].GetX();
+				y = entities[i]->GetMapObject().GetElements()[k].GetY();
+				map[y][x] = entities[i]->GetMapObject().GetElements()[k].GetMapChar();
+			}
 		}
 	}
 }

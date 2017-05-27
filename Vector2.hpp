@@ -20,6 +20,7 @@ public:
 
 	int		GetX() const;
 	int		GetY() const;
+
 protected:
 	int		x;
 	int		y;

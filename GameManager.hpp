@@ -17,8 +17,9 @@ public:
 	int		GetScreenWidth() const;
 	int		GetScreenHeight() const;
 	void	CheckCollisions();
-	void	PushEntity(Entity const &e);
+	int		PushEntity(Entity const &e);
 	void	HandleMovement();
+	void    SetPlayer(int id);
 private:
 	int		score;
 	int		lives;
