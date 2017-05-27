@@ -45,3 +45,8 @@ void Entity::Move(Vector2 const &delta)
 {
 	mapObj.Move(delta);
 }
+
+Entity		*Entity::clone()
+{
+	return (new Entity(*this));
+}
