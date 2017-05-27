@@ -6,7 +6,7 @@ int const GameManager::startingLives = 3;
 int const GameManager::screenWidth = MAX_X;
 int const GameManager::screenHeight = MAX_Y;
 
-GameManager::GameManager() : score(0), lives(startingLives), entityCount(500)
+GameManager::GameManager() : score(0), lives(startingLives), entityCount(500), scoreAcc(0)
 {
 	for (unsigned int i = 0; i < 500; i++)
 	{
@@ -82,6 +82,12 @@ int GameManager::GetLives() const
 	return (lives);
 }
 
+void GameManager::IncreaseScore(int inc)
+{
+	score += inc;
+	scoreAcc += inc;
+}
+
 int GameManager::GetScreenWidth() const
 {
 	return (screenWidth);
@@ -125,7 +131,15 @@ void GameManager::CheckCollisions()
 						}
 						else
 						{
-							delete entities[i];
+							if (entities[i]->GetType() == "p_projectile" || entities[k]->GetType() == "p_projectile")
+							{
+								if (entities[i]->GetType() == "enemy" || entities[k]->GetType() == "enemy")
+								{
+									score += ENEMY_SCORE;
+									scoreAcc += ENEMY_SCORE;
+								}
+							}
+							delete entities[i]; 
 							entities[i] = nullptr;
 							delete entities[k];
 							entities[k] = nullptr;
@@ -197,7 +211,8 @@ void GameManager::Update()
 	if (entities[0] != nullptr)
 	{
 		//entities[0]->MoveDirect(movementAxis);
-		GetPlayer()->Move(movementAxis);
+		//GetPlayer()->Move(movementAxis);
+		GetPlayer()->SetMoveDir(movementAxis);
 	}
 	else
 	{
@@ -220,6 +235,11 @@ void GameManager::Update()
 			}
 		}
 	}
+	if (scoreAcc > NEW_LIFE_SCORE)
+	{
+		scoreAcc = 0;
+		lives++;
+	}
 }
 
 void	GameManager::SetMovementAxis(std::string const &axis, int val)
@@ -238,4 +258,14 @@ void 	GameManager::ResetMovementAxis()
 {
 	movementAxis.SetY(0);
 	movementAxis.SetX(0);
+}
+
+Entity	*GameManager::GetPlayer()
+{
+	return entities[0];
+}
+
+int		GameManager::GetEntityCount()
+{
+	return entityCount;
 }

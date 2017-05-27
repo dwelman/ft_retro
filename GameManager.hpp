@@ -7,6 +7,10 @@
 #define MAX_X 30
 #define MAX_Y 45
 
+#define ENEMY_SCORE 100
+
+#define NEW_LIFE_SCORE 5000
+
 class GameManager
 {
 public:
@@ -18,6 +22,7 @@ public:
 
 	int		GetScore() const;
 	int		GetLives() const;
+	void	IncreaseScore(int inc);
 	void 	FillMap(char **map) const;
 	int		GetScreenWidth() const;
 	int		GetScreenHeight() const;
@@ -26,11 +31,12 @@ public:
 	void	Update();
 	void	SetMovementAxis(std::string const &axis, int val);
 	void 	ResetMovementAxis();
-	Entity	*GetPlayer() {return entities[0];}
-	int		GetEntityCount() {return entityCount;}
+	Entity	*GetPlayer();
+	int		GetEntityCount();
 
 private:
 	int				score;
+	int				scoreAcc;
 	int				lives;
 	EntityFactory	factory;
 	Vector2			movementAxis;

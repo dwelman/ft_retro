@@ -13,7 +13,8 @@ public:
     virtual void    Shoot();
 	EntityOrder		GetEntityOrder();
 	Entity			*clone() const;
-	virtual void	Move();
+	void			Move();
+	void			Move(Vector2 const &delta);
 protected:
     ShootingEntity();
     Vector2 *shootPoints;

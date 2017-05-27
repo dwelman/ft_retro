@@ -13,6 +13,7 @@ public:
     void    	Update();
 	void		MovePlayer(Vector2 const &delta);
 	Entity		*clone() const;
+	void		Move();
 
 	~Player();
 private:
