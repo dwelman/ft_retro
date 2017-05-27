@@ -2,15 +2,24 @@
 // Created by Dean DU TOIT on 2017/05/27.
 //
 
-#ifndef FT_RETRO_ENTITYFACTORY_HPP
-#define FT_RETRO_ENTITYFACTORY_HPP
+#include "IEntityFactory.hpp"
 
+#define MAX_LEARN 10
 
+class EntityFactory
+{
+private:
+	Entity			*_entities[MAX_LEARN];
+	int				_ecount;
 
-class EntityFactory {
+public:
+	EntityFactory();
+	~EntityFactory();
+	EntityFactory(const EntityFactory & src);
 
+	EntityFactory	 &operator=(const EntityFactory &src);
+	void 	learnEntity(Entity *);
+	Entity* createEntity(std::string const & type);
+	Entity* createEntity(std::string const & type, Vector2 &offset);
 };
 
-
-
-#endif //FT_RETRO_ENTITYFACTORY_HPP
