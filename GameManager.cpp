@@ -1,11 +1,16 @@
 #include "GameManager.hpp"
 
+int const GameManager::startingLives = 3;
+int const GameManager::screenWidth = 30;
+int const GameManager::screenHeight = 30;
+
 GameManager::GameManager() : score(0), lives(startingLives), entityCount(500)
 {
 	for (unsigned int i = 0; i < 500; i++)
 	{
 		entities[i] = nullptr;
 	}
+	player = nullptr;
 }
 
 GameManager::GameManager(GameManager const & gm)
@@ -92,7 +97,7 @@ void GameManager::PushEntity(Entity const & e)
 void GameManager::HandleMovement()
 {
 	Entity	*temp;
-	for (int i = 0; i < entityCount)
+	for (int i = 0; i < entityCount; i++)
 	{
 		if (entities[i] != nullptr)
 		{

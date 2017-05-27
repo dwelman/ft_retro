@@ -27,7 +27,7 @@ private:
 	Entity	*player;
 	int		entityCount;
 
-	int const	startingLives = 3;
-	int const	screenWidth = 30;
-	int const	screenHeight = 30;
+	static int const	startingLives;
+	static int const	screenWidth;
+	static int const	screenHeight;
 };
