@@ -8,7 +8,7 @@ class Entity
 public:
 	Entity(std::string const &_type, MapObject const & mo);
 	Entity(Entity const &e);
-	~Entity();
+	virtual ~Entity();
 
 	Entity	&operator=(Entity const &e);
 

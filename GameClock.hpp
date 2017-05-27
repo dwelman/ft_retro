@@ -14,7 +14,6 @@ class GameClock
 	clock_t	_fps;
 	clock_t	_interval;
 	clock_t	_cycleStart; 
-	clock_t _sleep;
 
 public:
 	GameClock();
