@@ -196,7 +196,8 @@ void GameManager::Update()
 
 	if (entities[0] != nullptr)
 	{
-		entities[0]->MoveDirect(movementAxis);
+		//entities[0]->MoveDirect(movementAxis);
+		GetPlayer()->Move(movementAxis);
 	}
 	else
 	{

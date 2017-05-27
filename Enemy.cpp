@@ -54,3 +54,8 @@ void    Enemy::Update()
     updateFreqCount++;
     shootFrequencyCount++;
 }
+
+Entity * Enemy::clone() const
+{
+	return (new Enemy(*this));
+}

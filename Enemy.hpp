@@ -13,6 +13,7 @@ public:
     void    SetShootFrequency(int s);
     int     GetShootFrequency();
     void    Update();
+	Entity		*clone() const;
 
     ~Enemy();
 private:

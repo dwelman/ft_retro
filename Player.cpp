@@ -30,16 +30,14 @@ Player::Player()
 void    Player::Update()
 {
     Move();
-    if (updateFreq > shootFreq)
-    {
-        Shoot();
-        updateFreq = 0;
-    }
-    updateFreq++;
-    exit (0);
 }
 
 void Player::MovePlayer(Vector2 const &delta)
 {
     mapObj.Move(delta);
+}
+
+Entity * Player::clone() const
+{
+	return (new Player(*this));
 }

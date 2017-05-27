@@ -97,6 +97,17 @@ EntityOrder		ShootingEntity::GetEntityOrder()
 
 ShootingEntity::ShootingEntity()
 {
+	shootPoints = nullptr;
+	projectilePos = nullptr;
+}
+
+void	ShootingEntity::Move()
+{
+	Entity::Move();
+	for (int i = 0; i < nShootPoints; i++)
+	{
+		shootPoints[i] = shootPoints[i] + moveDir;
+	}
 }
 
 Entity	*ShootingEntity::clone() const
