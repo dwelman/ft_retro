@@ -2,6 +2,7 @@
 #include "Entity.hpp"
 #include "GameManager.hpp"
 #include <ncurses.h>
+#include "GameClock.hpp"
 #include <iostream>
 
 int screen_init(Vector2 const &screen_vals)
@@ -30,6 +31,8 @@ int screen_init(Vector2 const &screen_vals)
 
 int	main(int argc, char **argv)
 {
+	GameClock clock(15);
+	int 		sleep = 0;
 	(void)argc;
 	(void)argv;
 
@@ -44,14 +47,16 @@ int	main(int argc, char **argv)
 	int maxY = 0;
 
 	GameManager gm;
-	getmaxyx(stdscr, maxX, maxY);
+	std::cout << "MaxX" << maxX << " MaxY " << maxY << std::endl;
 
 	Vector2 screen(maxX, maxY);
+
 	if (screen_init(screen) == 1)
 	{
 		std::cout << "Please Enlarge The Terminal Window." << std::endl;
 		std::cout << "current screen size x =  " << maxX << " y = " << maxY << std::endl;
 	}
+	getmaxyx(stdscr, maxX, maxY);
 
 	std::cout << screen.GetX() << " " << screen.GetY() << std::endl;
 
@@ -67,7 +72,7 @@ int	main(int argc, char **argv)
 
 	gm.PushEntity(ship);
 
-    int col, row, horizontal_space, vertical_space, score(0);
+    int col, row, horizontal_space, vertical_space;
 
     vertical_space = (maxX - 4) / (30 - 1);
     horizontal_space = maxY / (30 - 1);
@@ -79,13 +84,12 @@ int	main(int argc, char **argv)
 
 	while (running)
 	{
-
+		clock.startCycle();
 		//attron(A_BOLD);
 		//mvprintw(row + play_y * vertical_space, col + play_x * horizontal_space, "%c", '^');
 		//attroff(A_BOLD);
-	    //move(row + play_y * vertical_space, col + play_x * horizontal_space);
+	    move(row + 27 * vertical_space, col + 15 * horizontal_space);
 	      // change_refresh_time();
-	    refresh();
 	    switch (getch())
 	    {
 	        case KEY_LEFT:
@@ -99,22 +103,29 @@ int	main(int argc, char **argv)
 
 	            break;
 	        case KEY_DOWN:
-
-	            break;
+				break;
+			case 27:
+				return (0);
 		 }
-		 attron(COLOR_PAIR(3));
-		 mvprintw(maxX - 1, 1, "Move with right/left. Shoot with space.");
-		 mvprintw(maxX - 3, 1, "Points: %d", score);
-		 attroff(COLOR_PAIR(3));
+		attron(COLOR_PAIR(3));
+		mvprintw(maxX - 1, 1, "Move with right/left. Shoot with space.");
+		mvprintw(maxX - 2, 1, "Clock: %d", clock.getSeconds());
+		mvprintw(maxX - 3, 1, "Points: %d", 0);
+		attroff(COLOR_PAIR(3));
 
-		 gm.FillMap(map);
-		 for (int y = 0; y < 30; y++)
-	     {
-	         for (int x = 0; x < 30; x++)
-	         {
-	             mvprintw(row + y * vertical_space, col + x * horizontal_space,
-	                  "%c", map[y][x]);
-	         }
-	     }
+		gm.FillMap(map);
+		for (int y = 0; y < 30; y++)
+	    {
+	        for (int x = 0; x < 30; x++)
+	        {
+	            mvprintw(row + y * vertical_space, col + x * horizontal_space,
+	                 "%c", map[y][x]);
+	        }
+	    }
+		refresh();
+		sleep = clock.getSleepTime() / 1000;
+		if (sleep > 0)
+			usleep(sleep);
 	 }
+
 }
