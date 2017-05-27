@@ -36,7 +36,20 @@ MapObject const & Entity::GetMapObject() const
 	return (mapObj);
 }
 
+EntityOrder	Entity::GetEntityOrder()
+{
+	EntityOrder ret;
+
+	ret.amount = 0;
+	return (ret);
+}
+
 void Entity::Move()
+{
+
+}
+
+void Entity::Update()
 {
 	
 }
@@ -44,4 +57,9 @@ void Entity::Move()
 void Entity::Move(Vector2 const &delta)
 {
 	mapObj.Move(delta);
+}
+
+Entity		*Entity::clone()
+{
+	return (new Entity(*this));
 }

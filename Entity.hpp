@@ -2,6 +2,16 @@
 
 #include <string>
 #include "MapObject.hpp"
+#include "Vector2.hpp"
+
+
+#define ENTITY_ORDER_MAX 3
+struct EntityOrder
+{
+	int 		amount;
+	std::string	type[ENTITY_ORDER_MAX];
+	Vector2		pos[ENTITY_ORDER_MAX];
+};
 
 class Entity
 {
@@ -14,8 +24,11 @@ public:
 
 	std::string	const &GetType() const;
 	MapObject	const &GetMapObject() const;
+	virtual EntityOrder	GetEntityOrder();
 	virtual void 		Move();
 	virtual void		Move(Vector2 const &delta);
+	virtual	Entity		*clone();
+	virtual void 		Update();
 protected:
 	Entity();
 	MapObject	mapObj;

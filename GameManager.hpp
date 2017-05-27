@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Entity.hpp"
-#include "IMovingEntity.hpp"
 
 class GameManager
 {
@@ -14,6 +13,7 @@ public:
 
 	int		GetScore() const;
 	int		GetLives() const;
+	void 	FillMap(char **map) const;
 	int		GetScreenWidth() const;
 	int		GetScreenHeight() const;
 	void	CheckCollisions();
