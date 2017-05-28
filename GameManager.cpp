@@ -1,10 +1,17 @@
 #include "GameManager.hpp"
 
 
-
 int const GameManager::startingLives = 3;
 int const GameManager::screenWidth = MAX_X;
 int const GameManager::screenHeight = MAX_Y;
+
+void 	GameManager::makeStarfield(char **map)
+{
+	if (starfield == nullptr)
+	{
+		//starfield = new char*[]
+	}
+}
 
 GameManager::GameManager() :  score(0), scoreAcc(0), lives(startingLives), entityCount(500)
 {
@@ -27,7 +34,7 @@ GameManager::GameManager() :  score(0), scoreAcc(0), lives(startingLives), entit
 	temp = factory.createEntity("enemy", Vector2(screenWidth / 2 - 10, 10 ));
 	PushEntity(*temp);
 	delete temp;
-
+	starfield = nullptr;
 	//std::cout << "GameManager " << std::endl;
 
 	/*MapObject mo(1);

@@ -41,9 +41,11 @@ private:
 	EntityFactory	factory;
 	Vector2			movementAxis;
 
-	Entity	*entities[500];
-	int		entityCount;
+	Entity				*entities[500];
+	int					entityCount;
+	char 				**starfield;
 
+	void				makeStarfield(char **map);
 	static int const	startingLives;
 	static int const	screenWidth;
 	static int const	screenHeight;

@@ -5,7 +5,7 @@
 #include "GameClock.hpp"
 #include <iostream>
 
-int screen_init(Vector2 const &screen_vals)
+inline int screen_init(Vector2 const &screen_vals)
 {
 	initscr();
 	start_color();
@@ -30,7 +30,7 @@ int screen_init(Vector2 const &screen_vals)
 	return 0;
 }
 
-void	flushin(int lim)
+inline void	flushin(int lim)
 {
 	for (int i = 0; i < lim; i++)
 		getch();
@@ -40,6 +40,10 @@ int	main(int argc, char **argv)
 {
 	GameClock 		clock(15);
 	const int 		inlim  = 3;
+	int 			sleep = 0;
+	int 			maxX = 0;
+	int 			maxY = 0;
+	int 			col, row, horizontal_space, vertical_space;
 	(void)argc;
 	(void)argv;
 
@@ -50,29 +54,18 @@ int	main(int argc, char **argv)
 		map[y] = new char[MAX_X];
 	}
 
-	int maxX = 0;
-	int maxY = 0;
-
 	GameManager gm;
 	std::cout << "MaxX" << maxX << " MaxY " << maxY << std::endl;
-
 	Vector2 screen(maxX, maxY);
-  	int 		sleep = 0;
-
 	if (screen_init(screen) == 1)
 	{
 		std::cout << "Please Enlarge The Terminal Window." << std::endl;
 		std::cout << "current screen size x =  " << maxX << " y = " << maxY << std::endl;
 	}
 	getmaxyx(stdscr, maxX, maxY);
-
 	std::cout << screen.GetX() << " " << screen.GetY() << std::endl;
-
-    int col, row, horizontal_space, vertical_space;
-
     vertical_space = (maxX - 4) / (MAX_X + 20 - 1);
     horizontal_space = maxY / (MAX_Y + 20 - 1);
-
     row = (maxX - 4 - (MAX_X + 20 - 1) * vertical_space) / 2;
     col = (maxY - (MAX_Y + 20 - 1) * horizontal_space) / 2;
 
@@ -81,10 +74,6 @@ int	main(int argc, char **argv)
 	while (running)
 	{
 		clock.startCycle();
-		//attron(A_BOLD);
-		//mvprintw(row + play_y * vertical_space, col + play_x * horizontal_space, "%c", '^');
-		//attroff(A_BOLD);
-	      // change_refresh_time();
 	    switch (getch())
 	    {
 	        case KEY_LEFT:
