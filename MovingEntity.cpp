@@ -3,7 +3,7 @@
 MovingEntity::MovingEntity(std::string const & _type, MapObject const & mo) : Entity(_type, mo)
 {
 	moveDir = Vector2(0,0);
-	updateFreq = 1;
+	updateFreq = 0;
 	updateFreqCount = 0;
 }
 

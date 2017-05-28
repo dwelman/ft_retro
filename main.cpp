@@ -1,7 +1,7 @@
 #include "Vector2.hpp"
 #include "Entity.hpp"
 #include "GameManager.hpp"
-#include <ncurses.h>
+
 #include "GameClock.hpp"
 #include <iostream>
 
@@ -75,7 +75,7 @@ inline void	flushin(int lim)
 
 int	main(int argc, char **argv)
 {
-	GameClock 		clock(15);
+	GameClock 		clock(30);
 	const int 		inlim  = 2;
 	int 			sleep = 0;
 	int 			maxX = 0;
@@ -105,7 +105,6 @@ int	main(int argc, char **argv)
     horizontal_space = maxY / (MAX_X + 20 - 1);
     row = (maxX - 4 - (MAX_X + 20 - 1) * vertical_space) / 2;
     col = (maxY - (MAX_Y + 20 - 1) * horizontal_space) / 2;
-
 
 	wborder(stdscr, 0, 0,0 ,0 ,0 ,0 ,0 ,0);
 	bool	running = true;
@@ -137,9 +136,9 @@ int	main(int argc, char **argv)
 		 }
 		flushin(inlim);
 		attron(COLOR_PAIR(3));
-		mvprintw(maxX - 1, 1, "Move with right/left. Shoot with space.");
-		mvprintw(maxX - 2, 1, "Clock: %d", clock.getSeconds());
-		mvprintw(maxX - 3, 1, "Points: %d", gm.GetScore());
+		mvprintw(maxX - 2, 1, "Move with right/left. Shoot with space.");
+		mvprintw(maxX - 3, 1, "Clock: %d", clock.getSeconds());
+		mvprintw(maxX - 4, 1, "Points: %d", gm.GetScore());
 		attroff(COLOR_PAIR(3));
 		if (!pause)
 		{
@@ -151,8 +150,6 @@ int	main(int argc, char **argv)
 					setColor(map[y][x]);
 					mvprintw(y, x * 2,
 							 "%c", map[y][x]);
-					//			mvprintw(row + y * vertical_space, col + x * horizontal_space,
-					//					 "%c", map[y][x]);
 					unsetColor(map[y][x]);
 				}
 			}
@@ -162,18 +159,21 @@ int	main(int argc, char **argv)
 			steps++;
 		}
 		getmaxyx(stdscr, maxY, maxX);
-
-	   if (maxX < MAX_X * 2 || maxY < MAX_Y)
+	  	if (maxX < MAX_X * 2 || maxY < MAX_Y)
 		{
 			wclear(stdscr);
-			mvprintw(maxX / 2 - 10 , maxY / 2 - 10 * 2,
+			mvprintw(0  , 0,
 					 "%s", "Please Enlarge The Terminal Window.");
 			pause = true;
 		}
 		else
-	   {
-		   pause = false;
-	   }
+	   	{
+			if (pause)
+			{
+				wclear(stdscr);
+				pause = false;
+			}
+	   	}
 		refresh();
 	}
 }

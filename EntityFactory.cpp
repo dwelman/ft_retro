@@ -49,7 +49,7 @@ void 	InitFactory(EntityFactory *factory)
 		mo.PushElement(MapElement('V', 1, 1));
 		mo.PushElement(MapElement('|', 2, 1));
 		Vector2	sp[2] =	{Vector2(0, 2),Vector2(2, 2)};
-		Entity *player = new Enemy("big_enemy", mo, &sp[0], 2, 50);
+		Entity *player = new Enemy("big_enemy", mo, &sp[0], 2, 20);
 		player->SetUpdateFreq(1);
 		factory->learnEntity(player);
 	}
@@ -67,7 +67,7 @@ void 	InitFactory(EntityFactory *factory)
 		mo.PushElement(MapElement('^', 0, 2));
 		mo.PushElement(MapElement('^', 4, 2));
 		Vector2	sp[5] =	{Vector2(0, 3), Vector2(1, 3),Vector2(2, 3), Vector2(3, 3), Vector2(4, 3)};
-		Entity *player = new Enemy("huge_enemy", mo, &sp[0], 5, 60);
+		Entity *player = new Enemy("huge_enemy", mo, &sp[0], 5, 30);
 		player->SetUpdateFreq(1);
 		factory->learnEntity(player);
 	}
@@ -78,7 +78,7 @@ void 	InitFactory(EntityFactory *factory)
 		mo.PushElement(MapElement('V', 1, 0));
 		mo.PushElement(MapElement('/', 2, 0));
 		Vector2	sp[1] =	{Vector2(1, 1)};
-		Entity *player = new Enemy("enemy", mo, &sp[0], 1, 40);
+		Entity *player = new Enemy("enemy", mo, &sp[0], 1, 20);
 		player->SetUpdateFreq(1);
 		factory->learnEntity(player);
 	}

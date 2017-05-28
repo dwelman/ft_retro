@@ -4,6 +4,7 @@
 #include "EntityFactory.hpp"
 #include "MovingEntity.hpp"
 #include "Player.hpp"
+#include <ncurses.h>
 #define MAX_X 60
 #define MAX_Y 50
 
@@ -33,6 +34,8 @@ public:
 	void 	ResetMovementAxis();
 	Entity	*GetPlayer();
 	int		GetEntityCount();
+	void	SpawnNewEntity(std::string const &type, int x, int y);
+
 
 private:
 	int				score;
@@ -44,8 +47,11 @@ private:
 	Entity				*entities[500];
 	int					entityCount;
 	char 				**starfield;
-	int					counter;
+	int					starFieldCounter;
 	int					starfieldCount;
+
+	int					enemyCounter;
+	int					enemyCount;
 
 	void				makeStarfield();
 	void				addStarRow() const;

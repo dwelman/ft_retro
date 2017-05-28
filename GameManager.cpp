@@ -6,6 +6,18 @@ int const GameManager::startingLives = 3;
 int const GameManager::screenWidth = MAX_X;
 int const GameManager::screenHeight = MAX_Y;
 
+void	GameManager::SpawnNewEntity(std::string const &type, int x, int y)
+{
+	Entity	*newEnt;
+
+
+	newEnt = factory.createEntity(type, Vector2(x, y));
+	newEnt->Move(Vector2(x, y));
+	newEnt->SetMoveDir(Vector2(1, 0));
+	PushEntity(*newEnt);
+	delete(newEnt);
+}
+
 void 	GameManager::addStarRow() const
 {
 	for (int y = MAX_Y - 1; y > 0; y--)
@@ -65,32 +77,11 @@ GameManager::GameManager() :  score(0), scoreAcc(0), lives(startingLives), entit
 	PushEntity(*temp);
 	delete temp;
 
-	temp = factory.createEntity("enemy", Vector2(screenWidth / 2 + 10, 10 ));
-	PushEntity(*temp);
-	delete temp;
-
-	temp = factory.createEntity("big_enemy", Vector2(screenWidth / 2, 10 ));
-	PushEntity(*temp);
-	delete temp;
-
-	temp = factory.createEntity("huge_enemy", Vector2(screenWidth / 2 - 10, 10 ));
-	PushEntity(*temp);
-	delete temp;
 	starfield = nullptr;
 
 	makeStarfield();
 	starfieldCount = 5;
-	//std::cout << "GameManager " << std::endl;
-
-	/*MapObject mo(1);
-
-	mo.PushElement(MapElement('*', 0, 0));
-	std::cout << "elem " << mo.GetElements()[0].GetMapChar() << std::endl;
-	MovingEntity *projectile = new MovingEntity("p_projectile", mo);
-	projectile->SetMoveDir(Vector2(0, -1));
-*/
-	//temp = factory.createEntity("p_projectile", Vector2(screenWidth / 2 , screenHeight -5 ));
-	//PushEntity(*temp);
+	enemyCount = 10;
 }
 
 GameManager::GameManager(GameManager const & gm)
@@ -173,6 +164,8 @@ void GameManager::CheckCollisions()
 							if (lives == 0)
 							{
 								//Call game over
+								endwin();
+								std::cout << std::string( 100, '\n' ) << "Game over ! Your score : " << score << std::endl;
 								exit(0);
 							}
 						}
@@ -254,13 +247,25 @@ void GameManager::Update()
 {
 	EntityOrder	eo;
 	Entity 		*temp;
-	static std::string spawns[3] = {"enemy", "big_enemy", "massive_enemy"};
+	static std::string spawns[3] = {"enemy", "big_enemy", "huge_enemy"};
 
-	counter++;
-	if (counter > starfieldCount)
+	starFieldCounter++;
+	if (starFieldCounter > starfieldCount)
 	{
 		addStarRow();
-		counter = 0;
+		starFieldCounter = 0;
+	}
+	enemyCounter++;
+	if (enemyCounter > enemyCount)
+	{
+		int x(0), y(0), enemy(0);
+
+		x = rand() % MAX_Y / 2;
+		enemy = rand() % 3 ;
+		x = x < 5 ? x + 5 : x;
+		x = x < MAX_X - 5 ? x - 5 : x;
+		SpawnNewEntity(spawns[enemy], y, x);
+		enemyCounter = 0;
 	}
 	if (entities[0] != nullptr)
 	{
@@ -270,6 +275,8 @@ void GameManager::Update()
 	}
 	else
 	{
+		endwin();
+		std::cout << std::string( 100, '\n' ) << "Game over ! Your score : " << score << std::endl;
 		exit(0);
 	}
 	for (int i = 0; i < entityCount; i++)

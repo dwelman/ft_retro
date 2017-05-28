@@ -9,6 +9,7 @@ Entity::Entity(std::string const & _type, MapObject const & mo)
 	this->type = _type;
 	this->mapObj = mo;
 	this->updateFreqCount = 0;
+	updateFreq = 0;
 }
 
 Entity::Entity(Entity const & e)
@@ -22,6 +23,8 @@ Entity::~Entity()
 
 Entity & Entity::operator=(Entity const & e)
 {
+	updateFreq = e.updateFreq;
+	updateFreqCount = 0;
 	this->mapObj = e.mapObj;
 	this->type = e.type;
 	moveDir = e.moveDir;
