@@ -23,7 +23,7 @@ inline int screen_init(Vector2 const &screen_vals)
 	curs_set(FALSE);
 	if ((screen_vals.GetX() < 30 + 4) || (screen_vals.GetY() < 30))
     {
-		clear();
+		clear()gi;
 		endwin();
 		std::cout << "This screen has rows " << screen_vals.GetX() << " and " << screen_vals.GetX() <<  "columns. resize window" << std::endl;
 		return 1;
@@ -97,9 +97,15 @@ int	main(int argc, char **argv)
 	if (screen_init(screen) == 1)
 	{
 		std::cout << "Please Enlarge The Terminal Window." << std::endl;
-		std::cout << "current screen size x =  " << maxX << " y = " << maxY << std::endl;
 	}
+
 	getmaxyx(stdscr, maxY, maxX);
+	if (maxX < MAX_X * 2 || maxY < MAX_Y)
+	{
+		wclear(stdscr);
+		mvprintw(0, 0, "%s", "Please Enlarge The Terminal Window.");
+		exit(-1);
+	}
 	std::cout << screen.GetX() << " " << screen.GetY() << std::endl;
     vertical_space = (maxX - 4) / (MAX_Y + 20 - 1);
     horizontal_space = maxY / (MAX_X + 20 - 1);
@@ -137,14 +143,14 @@ int	main(int argc, char **argv)
 				return (0);
 		 }
 		flushin(inlim);
-		attron(COLOR_PAIR(3));
-		mvprintw(maxY - 4 , maxX / 2 + 15, "Lives: %d", gm.GetLives());
-		mvprintw(maxY - 2, 1, "Move with right/left. Shoot with space.");
-		mvprintw(maxY - 3, 1, "Clock: %d", clock.getSeconds());
-		mvprintw(maxY - 4, 1, "Points: %d", gm.GetScore());
-		attroff(COLOR_PAIR(3));
 		if (!pause)
 		{
+			attron(COLOR_PAIR(3));
+			mvprintw(maxY - 4 , maxX / 2 + 24, "Lives: %d", gm.GetLives());
+			mvprintw(maxY - 2, 1, "Move with right/left. Shoot with space.");
+			mvprintw(maxY - 3, 1, "Clock: %d", clock.getSeconds());
+			mvprintw(maxY - 4, 1, "Points: %d", gm.GetScore());
+			attroff(COLOR_PAIR(3));
 			gm.Update();
 			gm.CheckCollisions();
 			gm.FillMap(map);
