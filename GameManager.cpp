@@ -1,5 +1,6 @@
 #include "GameManager.hpp"
 #include <unistd.h>
+#include <string>
 
 int const GameManager::startingLives = 3;
 int const GameManager::screenWidth = MAX_X;
@@ -72,7 +73,7 @@ GameManager::GameManager() :  score(0), scoreAcc(0), lives(startingLives), entit
 	PushEntity(*temp);
 	delete temp;
 
-	temp = factory.createEntity("enemy", Vector2(screenWidth / 2 - 10, 10 ));
+	temp = factory.createEntity("huge_enemy", Vector2(screenWidth / 2 - 10, 10 ));
 	PushEntity(*temp);
 	delete temp;
 	starfield = nullptr;
@@ -253,6 +254,7 @@ void GameManager::Update()
 {
 	EntityOrder	eo;
 	Entity 		*temp;
+	static std::string spawns[3] = {"enemy", "big_enemy", "massive_enemy"};
 
 	counter++;
 	if (counter > starfieldCount)

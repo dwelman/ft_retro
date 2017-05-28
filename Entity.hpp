@@ -5,7 +5,7 @@
 #include "Vector2.hpp"
 
 
-#define ENTITY_ORDER_MAX 3
+#define ENTITY_ORDER_MAX 5
 struct EntityOrder
 {
 	int 		amount;
