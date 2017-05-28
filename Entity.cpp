@@ -71,6 +71,11 @@ void Entity::Move(Vector2 const &delta)
 	mapObj.Move(delta);
 }
 
+void Entity::SetMoveDir(Vector2 newMoveDir)
+{
+	moveDir = newMoveDir;
+}
+
 void 		Entity::SetUpdateFreq(int freq)
 {
 	updateFreq = freq;

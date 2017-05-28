@@ -110,6 +110,15 @@ void	ShootingEntity::Move()
 	}
 }
 
+void			ShootingEntity::Move(Vector2 const &delta)
+{
+	Entity::Move(delta);
+	for (int i = 0; i < nShootPoints; i++)
+	{
+		shootPoints[i] = shootPoints[i] + delta;
+	}
+}
+
 Entity	*ShootingEntity::clone() const
 {
     return (new ShootingEntity(*this));

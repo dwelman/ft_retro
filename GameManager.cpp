@@ -6,7 +6,7 @@ int const GameManager::startingLives = 3;
 int const GameManager::screenWidth = MAX_X;
 int const GameManager::screenHeight = MAX_Y;
 
-GameManager::GameManager() : score(0), lives(startingLives), entityCount(500), scoreAcc(0)
+GameManager::GameManager() :  score(0), scoreAcc(0), lives(startingLives), entityCount(500)
 {
 	for (unsigned int i = 0; i < 500; i++)
 	{

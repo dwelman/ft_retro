@@ -41,3 +41,8 @@ Entity * Player::clone() const
 {
 	return (new Player(*this));
 }
+
+void		Player::Move()
+{
+    ShootingEntity::Move();
+}
