@@ -75,7 +75,7 @@ inline void	flushin(int lim)
 
 int	main(int argc, char **argv)
 {
-	GameClock 		clock(30);
+	GameClock 		clock(20);
 	const int 		inlim  = 2;
 	int 			sleep = 0;
 	int 			maxX = 0;
@@ -99,7 +99,7 @@ int	main(int argc, char **argv)
 		std::cout << "Please Enlarge The Terminal Window." << std::endl;
 		std::cout << "current screen size x =  " << maxX << " y = " << maxY << std::endl;
 	}
-	getmaxyx(stdscr, maxX, maxY);
+	getmaxyx(stdscr, maxY, maxX);
 	std::cout << screen.GetX() << " " << screen.GetY() << std::endl;
     vertical_space = (maxX - 4) / (MAX_Y + 20 - 1);
     horizontal_space = maxY / (MAX_X + 20 - 1);
@@ -136,9 +136,10 @@ int	main(int argc, char **argv)
 		 }
 		flushin(inlim);
 		attron(COLOR_PAIR(3));
-		mvprintw(maxX - 2, 1, "Move with right/left. Shoot with space.");
-		mvprintw(maxX - 3, 1, "Clock: %d", clock.getSeconds());
-		mvprintw(maxX - 4, 1, "Points: %d", gm.GetScore());
+		mvprintw(maxY - 4 , maxX / 2 + 15, "Lives: %d", gm.GetLives());
+		mvprintw(maxY - 2, 1, "Move with right/left. Shoot with space.");
+		mvprintw(maxY - 3, 1, "Clock: %d", clock.getSeconds());
+		mvprintw(maxY - 4, 1, "Points: %d", gm.GetScore());
 		attroff(COLOR_PAIR(3));
 		if (!pause)
 		{
@@ -162,8 +163,7 @@ int	main(int argc, char **argv)
 	  	if (maxX < MAX_X * 2 || maxY < MAX_Y)
 		{
 			wclear(stdscr);
-			mvprintw(0  , 0,
-					 "%s", "Please Enlarge The Terminal Window.");
+			mvprintw(0, 0, "%s", "Please Enlarge The Terminal Window.");
 			pause = true;
 		}
 		else

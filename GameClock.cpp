@@ -58,5 +58,5 @@ int GameClock::getSleepTime() const
 
 int GameClock::getSeconds() const
 {
-	return (int)((clock() - _clock) / CLOCKS_PER_SEC) % INT32_MAX;
+	return (int)((clock() - _clock) / 10000 ) % INT32_MAX;
 }
