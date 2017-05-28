@@ -32,7 +32,7 @@ int screen_init(Vector2 const &screen_vals)
 
 int	main(int argc, char **argv)
 {
-	GameClock clock(0);
+	GameClock clock(15);
 	(void)argc;
 	(void)argv;
 
@@ -103,7 +103,7 @@ int	main(int argc, char **argv)
 		attron(COLOR_PAIR(3));
 		mvprintw(maxX - 1, 1, "Move with right/left. Shoot with space.");
 		mvprintw(maxX - 2, 1, "Clock: %d", clock.getSeconds());
-		mvprintw(maxX - 3, 1, "Points: %d", 0);
+		mvprintw(maxX - 3, 1, "Points: %d", sleep);
 		attroff(COLOR_PAIR(3));
 		gm.Update();
 		gm.CheckCollisions();
