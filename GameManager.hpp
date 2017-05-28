@@ -9,8 +9,10 @@
 #define MAX_Y 50
 
 #define ENEMY_SCORE 100
+#define BIG_ENEMY_SCORE 200
+#define HUGE_ENEMY_SCORE 400
 
-#define NEW_LIFE_SCORE 5000
+#define NEW_LIFE_SCORE 2500
 
 class GameManager
 {

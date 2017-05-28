@@ -100,17 +100,6 @@ GameManager & GameManager::operator=(GameManager const & gm)
 	return (*this);
 }
 
-/*void GameManager::SetPlayer(int id)
-{
-	if (id >= 0 && id < 500)
-	{
-		if (entities[id] != nullptr)
-		{
-			player = entities[id];
-		}
-	}
-}*/
-
 int GameManager::GetScore() const
 {
 	return (score);
@@ -177,6 +166,16 @@ void GameManager::CheckCollisions()
 								{
 									score += ENEMY_SCORE;
 									scoreAcc += ENEMY_SCORE;
+								}
+								if (entities[i]->GetType() == "big_enemy" || entities[k]->GetType() == "big_enemy")
+								{
+									score += BIG_ENEMY_SCORE;
+									scoreAcc += BIG_ENEMY_SCORE;
+								}
+								if (entities[i]->GetType() == "huge_enemy" || entities[k]->GetType() == "huge_enemy")
+								{
+									score += HUGE_ENEMY_SCORE;
+									scoreAcc += HUGE_ENEMY_SCORE;
 								}
 							}
 							delete entities[i];

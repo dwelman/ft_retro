@@ -132,6 +132,8 @@ int	main(int argc, char **argv)
 				gm.GetPlayer()->Shoot();
 				break;
 			case 27:
+				endwin();
+				std::cout << std::string( 100, '\n' ) << "Game over !" << std::endl;
 				return (0);
 		 }
 		flushin(inlim);
