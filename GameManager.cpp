@@ -1,15 +1,46 @@
 #include "GameManager.hpp"
-
+#include <cstdlib>
 
 int const GameManager::startingLives = 3;
 int const GameManager::screenWidth = MAX_X;
 int const GameManager::screenHeight = MAX_Y;
 
-void 	GameManager::makeStarfield(char **map)
+void 	GameManager::addStarRow() const
+{
+	for (int y = 1; y < MAX_Y; y++)
+	{
+		for (int x = 0; x < MAX_X; x++)
+		{
+			starfield[y][x] = starfield[y - 1][x];
+		}
+	}
+	for (int x = 0; x < MAX_X; x++)
+	{
+		srand (time(NULL));
+		if (rand() % 10 > 7)
+		{
+			starfield[0][x] = '.';
+		}
+		else
+		{
+			starfield[0][x] = ' ';
+		}
+	}
+}
+
+void 	GameManager::makeStarfield()
 {
 	if (starfield == nullptr)
 	{
-		//starfield = new char*[]
+		starfield = new char*[MAX_Y];
+		for (int y = 0; y < MAX_Y; y++)
+		{
+			starfield[y] = new char[MAX_X];
+		}
+	}
+	for (int y = 0; y < MAX_Y; y++)
+	{
+		addStarRow();
 	}
 }
 
@@ -35,6 +66,8 @@ GameManager::GameManager() :  score(0), scoreAcc(0), lives(startingLives), entit
 	PushEntity(*temp);
 	delete temp;
 	starfield = nullptr;
+
+	makeStarfield();
 	//std::cout << "GameManager " << std::endl;
 
 	/*MapObject mo(1);
@@ -141,7 +174,7 @@ void GameManager::CheckCollisions()
 									scoreAcc += ENEMY_SCORE;
 								}
 							}
-							delete entities[i]; 
+							delete entities[i];
 							entities[i] = nullptr;
 							delete entities[k];
 							entities[k] = nullptr;
@@ -172,17 +205,18 @@ void 	GameManager::FillMap(char **map) const
 	int	x = 0;
 	int	y = 0;
 
+	addStarRow();
 	for (int i = 0; i < MAX_Y; i++)
 	{
 		for (int j = 0; j < MAX_X; j++)
 		{
 			if (i == 0 || j == 0 || i == MAX_Y - 1 || j == MAX_X - 1)
 			{
-				map[i][j] = '#';
+				map[i][j] = '/';
 			}
 			else
 			{
-				map[i][j] = ' ';
+				map[i][j] = starfield[i][j];
 			}
 		}
 	}

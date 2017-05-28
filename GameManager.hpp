@@ -45,7 +45,8 @@ private:
 	int					entityCount;
 	char 				**starfield;
 
-	void				makeStarfield(char **map);
+	void				makeStarfield();
+	void				addStarRow() const;
 	static int const	startingLives;
 	static int const	screenWidth;
 	static int const	screenHeight;
