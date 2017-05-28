@@ -44,6 +44,8 @@ private:
 	Entity				*entities[500];
 	int					entityCount;
 	char 				**starfield;
+	int					counter;
+	int					starfieldCount;
 
 	void				makeStarfield();
 	void				addStarRow() const;

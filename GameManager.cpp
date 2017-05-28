@@ -7,7 +7,7 @@ int const GameManager::screenHeight = MAX_Y;
 
 void 	GameManager::addStarRow() const
 {
-	for (int y = 1; y < MAX_Y; y++)
+	for (int y = MAX_Y - 1; y > 0; y--)
 	{
 		for (int x = 0; x < MAX_X; x++)
 		{
@@ -16,10 +16,20 @@ void 	GameManager::addStarRow() const
 	}
 	for (int x = 0; x < MAX_X; x++)
 	{
-		srand (clock());
-		if (rand() % 10 > 7)
+		//srand (time(NULL));
+		if (rand() % 100 > 95)
 		{
-			starfield[0][x] = '.';
+			if (x > 0)
+			{
+				if (starfield[0][x - 1] != '.')
+				{
+					starfield[0][x] = '.';
+				}
+			}
+			else
+			{
+				starfield[0][x] = '.';
+			}
 		}
 		else
 		{
@@ -58,7 +68,7 @@ GameManager::GameManager() :  score(0), scoreAcc(0), lives(startingLives), entit
 	PushEntity(*temp);
 	delete temp;
 
-	temp = factory.createEntity("enemy", Vector2(screenWidth / 2, 10 ));
+	temp = factory.createEntity("big_enemy", Vector2(screenWidth / 2, 10 ));
 	PushEntity(*temp);
 	delete temp;
 
@@ -68,6 +78,7 @@ GameManager::GameManager() :  score(0), scoreAcc(0), lives(startingLives), entit
 	starfield = nullptr;
 
 	makeStarfield();
+	starfieldCount = 5;
 	//std::cout << "GameManager " << std::endl;
 
 	/*MapObject mo(1);
@@ -205,7 +216,6 @@ void 	GameManager::FillMap(char **map) const
 	int	x = 0;
 	int	y = 0;
 
-	addStarRow();
 	for (int i = 0; i < MAX_Y; i++)
 	{
 		for (int j = 0; j < MAX_X; j++)
@@ -244,6 +254,12 @@ void GameManager::Update()
 	EntityOrder	eo;
 	Entity 		*temp;
 
+	counter++;
+	if (counter > starfieldCount)
+	{
+		addStarRow();
+		counter = 0;
+	}
 	if (entities[0] != nullptr)
 	{
 		//entities[0]->MoveDirect(movementAxis);

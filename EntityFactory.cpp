@@ -11,12 +11,12 @@ void 	InitFactory(EntityFactory *factory)
 	{
 		//Make Player
 		MapObject mo(6);
-		mo.PushElement(MapElement('.', 0, 0));
-		mo.PushElement(MapElement('|', 1, 0));
-		mo.PushElement(MapElement('.', 2, 0));
-		mo.PushElement(MapElement('/', 0, 1));
-		mo.PushElement(MapElement('|', 1, 1));
-		mo.PushElement(MapElement('\\', 2, 1));
+		mo.PushElement(MapElement('|', 0, 0));
+		mo.PushElement(MapElement('^', 1, 0));
+		mo.PushElement(MapElement('|', 2, 0));
+		mo.PushElement(MapElement('\\', 0, 1));
+		mo.PushElement(MapElement('_', 1, 1));
+		mo.PushElement(MapElement('/', 2, 1));
 		Vector2	sp[2] =	{Vector2(0, -1),Vector2(2, -1)};
 		Entity *player = new Player("player", mo, &sp[0], 2);
 		player->SetUpdateFreq(1);
@@ -49,7 +49,18 @@ void 	InitFactory(EntityFactory *factory)
 		mo.PushElement(MapElement('V', 1, 1));
 		mo.PushElement(MapElement('|', 2, 1));
 		Vector2	sp[2] =	{Vector2(0, 2),Vector2(2, 2)};
-		Entity *player = new Enemy("enemy", mo, &sp[0], 2, 20);
+		Entity *player = new Enemy("big_enemy", mo, &sp[0], 2, 50);
+		player->SetUpdateFreq(1);
+		factory->learnEntity(player);
+	}
+	{
+		//Make Enemy
+		MapObject mo(3);
+		mo.PushElement(MapElement('\\', 0, 0));
+		mo.PushElement(MapElement('V', 1, 0));
+		mo.PushElement(MapElement('/', 2, 0));
+		Vector2	sp[1] =	{Vector2(1, 1)};
+		Entity *player = new Enemy("enemy", mo, &sp[0], 1, 40);
 		player->SetUpdateFreq(1);
 		factory->learnEntity(player);
 	}
