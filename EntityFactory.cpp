@@ -49,7 +49,7 @@ void 	InitFactory(EntityFactory *factory)
 		mo.PushElement(MapElement('V', 1, 1));
 		mo.PushElement(MapElement('|', 2, 1));
 		Vector2	sp[2] =	{Vector2(0, 2),Vector2(2, 2)};
-		Entity *player = new Enemy("enemy", mo, &sp[0], 2, 100);
+		Entity *player = new Enemy("enemy", mo, &sp[0], 2, 1000);
 		player->SetUpdateFreq(1);
 		factory->learnEntity(player);
 	}

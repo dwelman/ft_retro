@@ -1,9 +1,10 @@
 #include "Enemy.hpp"
 
 Enemy::Enemy(std::string const &_type, MapObject const & mo, Vector2 *_shootPoints, int _nShootPoints, int _sf)
-    : ShootingEntity(_type, mo, _shootPoints, _nShootPoints), shootFrequency(_sf)
+    : ShootingEntity(_type, mo, _shootPoints, _nShootPoints)
 {
     shootFrequencyCount = 0;
+    shootFrequency = _sf;
 }
 
 Enemy::Enemy(Enemy const &e)
@@ -46,9 +47,10 @@ void    Enemy::Update()
 		Move();
 		updateFreqCount = 0;
 	}
-    if (shootFrequencyCount >= shootFrequency)
+    if (shootFrequencyCount > shootFrequency)
     {
-        //Shoot();
+        exit (-1);
+        Shoot();
         shootFrequencyCount = 0;
     }
     updateFreqCount++;
