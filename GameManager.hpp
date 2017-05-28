@@ -4,8 +4,8 @@
 #include "EntityFactory.hpp"
 #include "MovingEntity.hpp"
 #include "Player.hpp"
-#define MAX_X 200
-#define MAX_Y 45
+#define MAX_X 60
+#define MAX_Y 50
 
 #define ENEMY_SCORE 100
 

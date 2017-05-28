@@ -15,6 +15,7 @@ inline int screen_init(Vector2 const &screen_vals)
 	init_pair(4, COLOR_BLUE, COLOR_BLACK);
 	init_pair(5, COLOR_MAGENTA, COLOR_BLACK);
 	init_pair(6, COLOR_CYAN, COLOR_BLACK);
+	init_pair(7, COLOR_WHITE, COLOR_BLACK);
 	raw();
 	noecho();
 	nodelay(stdscr, TRUE);
@@ -34,8 +35,17 @@ void	setColor(char c)
 {
 	switch (c)
 	{
+		case '.':
+			attron(COLOR_PAIR(7));
+			break;
 		case '*':
-			attron(COLOR_PAIR(4));
+			attron(COLOR_PAIR(6));
+			break;
+		case 'o':
+			attron(COLOR_PAIR(1));
+			break;
+		default:
+			attron(COLOR_PAIR(3));
 	}
 }
 
@@ -43,8 +53,17 @@ void	unsetColor(char c)
 {
 	switch (c)
 	{
+		case '.':
+			attroff(COLOR_PAIR(7));
+			break;
 		case '*':
-			attroff(COLOR_PAIR(4));
+			attroff(COLOR_PAIR(6));
+			break;
+		case 'o':
+			attroff(COLOR_PAIR(1));
+			break;
+		default:
+			attron(COLOR_PAIR(3));
 	}
 }
 
@@ -56,7 +75,7 @@ inline void	flushin(int lim)
 
 int	main(int argc, char **argv)
 {
-	GameClock 		clock(30);
+	GameClock 		clock(15);
 	const int 		inlim  = 2;
 	int 			sleep = 0;
 	int 			maxX = 0;
@@ -74,7 +93,7 @@ int	main(int argc, char **argv)
 
 	GameManager gm;
 	std::cout << "MaxX" << maxX << " MaxY " << maxY << std::endl;
-	Vector2 screen(maxX, maxY);
+	Vector2 screen(maxY, maxX);
 	if (screen_init(screen) == 1)
 	{
 		std::cout << "Please Enlarge The Terminal Window." << std::endl;
@@ -82,17 +101,20 @@ int	main(int argc, char **argv)
 	}
 	getmaxyx(stdscr, maxX, maxY);
 	std::cout << screen.GetX() << " " << screen.GetY() << std::endl;
-    vertical_space = (maxX - 4) / (MAX_X + 20 - 1);
-    horizontal_space = maxY / (MAX_Y + 20 - 1);
+    vertical_space = (maxX - 4) / (MAX_Y + 20 - 1);
+    horizontal_space = maxY / (MAX_X + 20 - 1);
     row = (maxX - 4 - (MAX_X + 20 - 1) * vertical_space) / 2;
     col = (maxY - (MAX_Y + 20 - 1) * horizontal_space) / 2;
+
+
 	wborder(stdscr, 0, 0,0 ,0 ,0 ,0 ,0 ,0);
 	bool	running = true;
 	int steps = 0;
+	bool pause = false;
 	while (running)
 	{
 		clock.startCycle();
-	    switch (getch())
+		switch (getch())
 	    {
 	        case KEY_LEFT:
 				gm.SetMovementAxis("h", -1);
@@ -119,23 +141,39 @@ int	main(int argc, char **argv)
 		mvprintw(maxX - 2, 1, "Clock: %d", clock.getSeconds());
 		mvprintw(maxX - 3, 1, "Points: %d", gm.GetScore());
 		attroff(COLOR_PAIR(3));
-		gm.Update();
-		gm.CheckCollisions();
-		gm.FillMap(map);
-		for (int y = 0; y < MAX_Y; y++)
-	    {
-	        for (int x = 0; x < MAX_X; x++)
-	        {
-				setColor(map[y][x]);
-				mvprintw( y , x ,
-	                 "%c", map[y][x]);
-				unsetColor(map[y][x]);
-	        }
-	    }
+		if (!pause)
+		{
+			gm.Update();
+			gm.CheckCollisions();
+			gm.FillMap(map);
+			for (int y = 0; y < MAX_Y; y++) {
+				for (int x = 0; x < MAX_X; x++) {
+					setColor(map[y][x]);
+					mvprintw(y, x * 2,
+							 "%c", map[y][x]);
+					//			mvprintw(row + y * vertical_space, col + x * horizontal_space,
+					//					 "%c", map[y][x]);
+					unsetColor(map[y][x]);
+				}
+			}
+			sleep = clock.getSleepTime() * 1000;
+			if (sleep > 0)
+				usleep(sleep);
+			steps++;
+		}
+		getmaxyx(stdscr, maxY, maxX);
+
+	   if (maxX < MAX_X * 2 || maxY < MAX_Y)
+		{
+			wclear(stdscr);
+			mvprintw(maxX / 2 - 10 , maxY / 2 - 10 * 2,
+					 "%s", "Please Enlarge The Terminal Window.");
+			pause = true;
+		}
+		else
+	   {
+		   pause = false;
+	   }
 		refresh();
-		sleep = clock.getSleepTime() * 1000;
-		if (sleep > 0)
-			usleep(sleep);
-		steps++;
 	}
 }
