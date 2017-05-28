@@ -30,9 +30,16 @@ int screen_init(Vector2 const &screen_vals)
 	return 0;
 }
 
+void	flushin(int lim)
+{
+	for (int i = 0; i < lim; i++)
+		getch();
+}
+
 int	main(int argc, char **argv)
 {
-	GameClock clock(15);
+	GameClock 		clock(15);
+	const int 		inlim  = 3;
 	(void)argc;
 	(void)argv;
 
@@ -77,7 +84,6 @@ int	main(int argc, char **argv)
 		//attron(A_BOLD);
 		//mvprintw(row + play_y * vertical_space, col + play_x * horizontal_space, "%c", '^');
 		//attroff(A_BOLD);
-	    move(row + 27 * vertical_space, col + 15 * horizontal_space);
 	      // change_refresh_time();
 	    switch (getch())
 	    {
@@ -89,6 +95,7 @@ int	main(int argc, char **argv)
 				break;
 	        case KEY_UP:
 				gm.SetMovementAxis("v", -1);
+				fpurge(stdin);
 	            break;
 	        case KEY_DOWN:
 				gm.SetMovementAxis("v", 1);
@@ -99,6 +106,7 @@ int	main(int argc, char **argv)
 			case 27:
 				return (0);
 		 }
+		flushin(inlim);
 		attron(COLOR_PAIR(3));
 		mvprintw(maxX - 1, 1, "Move with right/left. Shoot with space.");
 		mvprintw(maxX - 2, 1, "Clock: %d", clock.getSeconds());
