@@ -48,7 +48,7 @@ void    Enemy::Update()
 	}
     if (shootFrequencyCount >= shootFrequency)
     {
-        Shoot();
+        //Shoot();
         shootFrequencyCount = 0;
     }
     updateFreqCount++;

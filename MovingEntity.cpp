@@ -3,6 +3,8 @@
 MovingEntity::MovingEntity(std::string const & _type, MapObject const & mo) : Entity(_type, mo)
 {
 	moveDir = Vector2(0,0);
+	updateFreq = 1000000;
+	updateFreqCount = 0;
 }
 
 MovingEntity::MovingEntity(MovingEntity const & m)
@@ -42,7 +44,12 @@ MovingEntity::MovingEntity()
 
 void 	MovingEntity::Update()
 {
-	Move();
+	if (updateFreqCount > updateFreq)
+	{
+		Move();
+		updateFreqCount = 0;
+	}
+	updateFreqCount++;
 }
 
 Entity	*MovingEntity::clone() const

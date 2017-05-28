@@ -18,5 +18,6 @@ public:
 protected:
 	MovingEntity();
 
-
+	int		updateFreq;
+	int		updateFreqCount;
 };
