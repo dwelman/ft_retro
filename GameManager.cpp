@@ -1,5 +1,5 @@
 #include "GameManager.hpp"
-#include <cstdlib>
+#include <unistd.h>
 
 int const GameManager::startingLives = 3;
 int const GameManager::screenWidth = MAX_X;
@@ -16,7 +16,7 @@ void 	GameManager::addStarRow() const
 	}
 	for (int x = 0; x < MAX_X; x++)
 	{
-		srand (time(NULL));
+		srand (clock());
 		if (rand() % 10 > 7)
 		{
 			starfield[0][x] = '.';

@@ -3,7 +3,7 @@
 MovingEntity::MovingEntity(std::string const & _type, MapObject const & mo) : Entity(_type, mo)
 {
 	moveDir = Vector2(0,0);
-	updateFreq = 1000;
+	updateFreq = 1;
 	updateFreqCount = 0;
 }
 
@@ -20,6 +20,8 @@ MovingEntity & MovingEntity::operator=(MovingEntity const & m)
 {
 	Entity::operator=(m);
 	moveDir = m.moveDir;
+	updateFreq = m.updateFreq;
+	updateFreqCount = m.updateFreqCount;
 	return (*this);
 }
 

@@ -4,7 +4,7 @@
 #include "EntityFactory.hpp"
 #include "MovingEntity.hpp"
 #include "Player.hpp"
-#define MAX_X 30
+#define MAX_X 200
 #define MAX_Y 45
 
 #define ENEMY_SCORE 100

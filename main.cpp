@@ -30,6 +30,24 @@ inline int screen_init(Vector2 const &screen_vals)
 	return 0;
 }
 
+void	setColor(char c)
+{
+	switch (c)
+	{
+		case '*':
+			attron(COLOR_PAIR(4));
+	}
+}
+
+void	unsetColor(char c)
+{
+	switch (c)
+	{
+		case '*':
+			attroff(COLOR_PAIR(4));
+	}
+}
+
 inline void	flushin(int lim)
 {
 	for (int i = 0; i < lim; i++)
@@ -38,8 +56,8 @@ inline void	flushin(int lim)
 
 int	main(int argc, char **argv)
 {
-	GameClock 		clock(15);
-	const int 		inlim  = 3;
+	GameClock 		clock(30);
+	const int 		inlim  = 2;
 	int 			sleep = 0;
 	int 			maxX = 0;
 	int 			maxY = 0;
@@ -68,7 +86,7 @@ int	main(int argc, char **argv)
     horizontal_space = maxY / (MAX_Y + 20 - 1);
     row = (maxX - 4 - (MAX_X + 20 - 1) * vertical_space) / 2;
     col = (maxY - (MAX_Y + 20 - 1) * horizontal_space) / 2;
-
+	wborder(stdscr, 0, 0,0 ,0 ,0 ,0 ,0 ,0);
 	bool	running = true;
 	int steps = 0;
 	while (running)
@@ -99,7 +117,7 @@ int	main(int argc, char **argv)
 		attron(COLOR_PAIR(3));
 		mvprintw(maxX - 1, 1, "Move with right/left. Shoot with space.");
 		mvprintw(maxX - 2, 1, "Clock: %d", clock.getSeconds());
-		mvprintw(maxX - 3, 1, "Points: %d", sleep);
+		mvprintw(maxX - 3, 1, "Points: %d", gm.GetScore());
 		attroff(COLOR_PAIR(3));
 		gm.Update();
 		gm.CheckCollisions();
@@ -108,10 +126,10 @@ int	main(int argc, char **argv)
 	    {
 	        for (int x = 0; x < MAX_X; x++)
 	        {
-				attron(COLOR_PAIR(3));
-				mvprintw(row + y * vertical_space, col + x * horizontal_space,
+				setColor(map[y][x]);
+				mvprintw( y , x ,
 	                 "%c", map[y][x]);
-				attroff(COLOR_PAIR(3));
+				unsetColor(map[y][x]);
 	        }
 	    }
 		refresh();
