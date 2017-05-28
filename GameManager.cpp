@@ -28,10 +28,6 @@ GameManager::GameManager() :  score(0), scoreAcc(0), lives(startingLives), entit
 	PushEntity(*temp);
 	delete temp;
 
-	temp = factory.createEntity("e_projectile", Vector2(screenWidth / 2 - 10, 15));
-	PushEntity(*temp);
-	delete temp;
-
 	//std::cout << "GameManager " << std::endl;
 
 	/*MapObject mo(1);
@@ -110,7 +106,6 @@ void GameManager::CheckCollisions()
 			{
 				delete entities[i];
 				entities[i] = nullptr;
-				std::cout << "OFF MAP!" << std::endl;
 			}
 			for (int k = 0; k < entityCount; k++)
 			{
@@ -240,6 +235,7 @@ void GameManager::Update()
 		scoreAcc = 0;
 		lives++;
 	}
+	ResetMovementAxis();
 }
 
 void	GameManager::SetMovementAxis(std::string const &axis, int val)
