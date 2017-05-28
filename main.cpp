@@ -74,7 +74,6 @@ int	main(int argc, char **argv)
 	while (running)
 	{
 		clock.startCycle();
-		gm.ResetMovementAxis();
 		//attron(A_BOLD);
 		//mvprintw(row + play_y * vertical_space, col + play_x * horizontal_space, "%c", '^');
 		//attroff(A_BOLD);
